@@ -42,7 +42,7 @@ public class Utils {
 
 
     public static String coordCommand(Location location) {
-        return "/tp " + location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ() + " " + location.getYaw() + " " + location.getPitch();
+        return "/tp " + location.getBlockX() + " " + location.getBlockY() + " " + location.getBlockZ();
     }
 
     public static <T> T getOne(Set<T> set) {
@@ -50,44 +50,6 @@ public class Utils {
         list.addAll(set);
 
         return list.get(Util.randNumber(0, set.size() - 1));
-    }
-
-    public static String invSerialize(Inventory inventory) {
-        try {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
-
-            dataOutput.writeInt(inventory.getSize());
-
-            for (int i = 0; i < inventory.getSize(); i++) {
-                dataOutput.writeObject(inventory.getItem(i));
-            }
-
-            dataOutput.close();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static Inventory invDeserialize(String data) {
-        try {
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
-            BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
-            Inventory inventory = Bukkit.getServer().createInventory(null, dataInput.readInt());
-
-            for (int i = 0; i < inventory.getSize(); i++) {
-                inventory.setItem(i, (ItemStack) dataInput.readObject());
-            }
-
-            dataInput.close();
-            return inventory;
-        } catch (ClassNotFoundException | IOException e) {
-            FounderHunt.get().getLogger().severe("Impossibile deserializzare l'inventario nella path " + data + ".");
-            e.printStackTrace();
-            return null;
-        }
     }
 
 }

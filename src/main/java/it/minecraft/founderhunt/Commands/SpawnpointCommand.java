@@ -11,6 +11,8 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 @SuppressWarnings("unused")
 public class SpawnpointCommand extends SubCommandFramework {
     public SpawnpointCommand(String label, String... aliases) {
@@ -28,7 +30,7 @@ public class SpawnpointCommand extends SubCommandFramework {
     public void SpawnpointAdd(CommandSender sender, String label, String[] args) {
 
         Player player = Validator.getPlayerSender(sender);
-        String[] sections = (String[]) Config.SPAWN.getSections().toArray();
+        String[] sections = Arrays.copyOf(Config.SPAWN.getSections().toArray(), Config.SPAWN.getSections().toArray().length, String[].class);
         int number = 1;
 
         if(sections.length > 0) {
@@ -56,7 +58,7 @@ public class SpawnpointCommand extends SubCommandFramework {
             return;
         }
 
-        Config.SPAWN.set("POINT" + number, null);
+        Config.SPAWN.set("POINT-" + number, null);
         Config.SPAWN.save();
 
         sender.sendMessage(ChatColor.GREEN + "Hai rimosso correttamente lo spawnpoint #" + number + "!");

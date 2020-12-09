@@ -7,6 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.tecnocraft.utils.utils.SubCommandFramework;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 
@@ -35,7 +36,12 @@ public class KitCommand extends SubCommandFramework {
             return;
         }
 
-        Config.KITS.set("kit." + type, Utils.invSerialize(player.getInventory()));
+        for(int i = 0; i < player.getInventory().getContents().length; i++) {
+            ItemStack item = player.getInventory().getContents()[i];
+            if(item == null) continue;
+            Config.KITS.set("kit." + type + "." + i, item);
+        }
+
         Config.KITS.save();
 
         sender.sendMessage(ChatColor.GREEN + "Hai impostato correttamente l'inventario " + type + "!");

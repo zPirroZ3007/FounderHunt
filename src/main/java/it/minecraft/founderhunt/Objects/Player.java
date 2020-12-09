@@ -4,8 +4,6 @@ import it.minecraft.founderhunt.Utils.Config;
 import it.minecraft.founderhunt.Utils.Stats;
 import it.minecraft.founderhunt.Utils.Utils;
 import lombok.Getter;
-import lombok.Setter;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
@@ -39,23 +37,16 @@ public class Player extends CraftPlayer {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void giveKit() {
 
-        Inventory vipInventory = Utils.invDeserialize(Config.KITS.getString("kit.vip"));
-        Inventory normalInventory = Utils.invDeserialize(Config.KITS.getString("kit.normal"));
-
-        if(vipInventory == null) {
-            sendMessage(ChatColor.RED + "Il kit VIP non è stato impostato. Contatta un amministratore.");
-            return;
+        if(isVIP()) {
+            Config.KITS.getSections("kit.vip").forEach(slot -> getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.vip." + slot)));
+        } else {
+            Config.KITS.getSections("kit.normal").forEach(slot -> getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.normal." + slot)));
         }
 
-        if(normalInventory == null) {
-            sendMessage(ChatColor.RED + "Il kit normal non è stato impostato. Contatta un amministratore.");
-            return;
-        }
-
-        if(isVIP()) getInventory().setContents(vipInventory.getContents());
-        else getInventory().setContents(normalInventory.getContents());
+        updateInventory();
 
     }
 
