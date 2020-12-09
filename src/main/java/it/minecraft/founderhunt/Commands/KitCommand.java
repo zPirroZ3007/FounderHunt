@@ -30,7 +30,7 @@ public class KitCommand extends SubCommandFramework {
         Player player = Validator.getPlayerSender(sender);
         String type = args[0].toLowerCase();
 
-        if(Arrays.asList("normal", "vip").contains(type)) {
+        if(!Arrays.asList("normal", "vip").contains(type)) {
             sender.sendMessage(ChatColor.RED + "Il tipo del kit può essere normal o vip.");
             return;
         }
