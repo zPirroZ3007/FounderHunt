@@ -1,12 +1,12 @@
 package it.minecraft.founderhunt.Commands;
 
 import it.minecraft.founderhunt.FounderHunt;
-import it.minecraft.founderhunt.Objects.Player;
 import it.minecraft.founderhunt.Utils.Config;
 import it.minecraft.founderhunt.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import net.tecnocraft.utils.utils.SubCommandFramework;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
@@ -27,7 +27,7 @@ public class KitCommand extends SubCommandFramework {
     @SubCommandDescription("Imposta il kit da dare allo spawnpoint.")
     public void kitSetkit(CommandSender sender, String label, String[] args) {
 
-        Player player = Player.to(Validator.getPlayerSender(sender));
+        Player player = Validator.getPlayerSender(sender);
         String type = args[0].toLowerCase();
 
         if(Arrays.asList("normal", "vip").contains(type)) {
