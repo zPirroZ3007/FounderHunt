@@ -55,10 +55,6 @@
 
     <repositories>
         <repository>
-            <id>papermc-repo</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
-        </repository>
-        <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
@@ -69,18 +65,7 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>net.tecnocraft</groupId>
-            <artifactId>TecnoUtilities</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
-            <scope>provided</scope>
-        </dependency>
+
 
         <!-- Dipendenze private, vanno importate manualmente per evitare di infrangere copyright o DMCA -->
         <dependency>
@@ -93,6 +78,20 @@
             <groupId>net.tecnocraft</groupId>
             <artifactId>QualityArmory</artifactId>
             <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Dipendenze pubbliche -->
+        <dependency>
+            <groupId>net.tecnocraft</groupId>
+            <artifactId>TecnoUtilities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
