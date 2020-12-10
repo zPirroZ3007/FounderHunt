@@ -1,7 +1,7 @@
-package it.minecraft.founderhunt.Utils;
+package it.founderhunt.Utils;
 
 import com.google.common.collect.Lists;
-import it.minecraft.founderhunt.FounderHunt;
+import it.founderhunt.FounderHunt;
 import lombok.SneakyThrows;
 import net.tecnocraft.utils.utils.Util;
 import org.bukkit.Bukkit;

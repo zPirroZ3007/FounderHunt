@@ -1,8 +1,8 @@
-package it.minecraft.founderhunt.Commands;
+package it.founderhunt.Commands;
 
-import it.minecraft.founderhunt.FounderHunt;
-import it.minecraft.founderhunt.Utils.Config;
-import it.minecraft.founderhunt.Utils.Utils;
+import it.founderhunt.FounderHunt;
+import it.founderhunt.Utils.Config;
+import it.founderhunt.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.tecnocraft.utils.utils.SubCommandFramework;

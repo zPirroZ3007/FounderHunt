@@ -1,10 +1,10 @@
-package it.minecraft.founderhunt;
+package it.founderhunt;
 
-import it.minecraft.founderhunt.Commands.KitCommand;
-import it.minecraft.founderhunt.Commands.SpawnpointCommand;
-import it.minecraft.founderhunt.Listeners.JoinQuitListener;
-import it.minecraft.founderhunt.Utils.Config;
-import it.minecraft.founderhunt.Utils.Stats;
+import it.founderhunt.Commands.KitCommand;
+import it.founderhunt.Commands.SpawnpointCommand;
+import it.founderhunt.Listeners.JoinQuitListener;
+import it.founderhunt.Utils.Config;
+import it.founderhunt.Utils.Stats;
 import net.tecnocraft.utils.utils.Listeners;
 import net.tecnocraft.utils.utils.Log;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -1,6 +1,6 @@
-package it.minecraft.founderhunt.Listeners;
+package it.founderhunt.Listeners;
 
-import it.minecraft.founderhunt.Objects.Player;
+import it.founderhunt.Objects.Player;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
