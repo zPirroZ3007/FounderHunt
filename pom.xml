@@ -65,8 +65,6 @@
     </repositories>
 
     <dependencies>
-
-
         <!-- Dipendenze private, vanno importate manualmente per evitare di infrangere copyright o DMCA -->
         <dependency>
             <groupId>net.tecnocraft</groupId>
