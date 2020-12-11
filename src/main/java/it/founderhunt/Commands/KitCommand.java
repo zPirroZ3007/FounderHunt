@@ -1,6 +1,6 @@
 package it.founderhunt.Commands;
 
-import it.minecraft.founderhunt.FounderHunt;
+import it.founderhunt.FounderHunt;
 import it.founderhunt.Utils.Config;
 import net.md_5.bungee.api.ChatColor;
 import net.tecnocraft.utils.utils.SubCommandFramework;
