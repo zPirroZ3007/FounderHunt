@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.founderhunt</groupId>
-    <artifactId>FounderHunt</artifactId>
+    <artifactId>FounderHunt-Lobby</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>FounderHunt</name>
+    <name>FounderHunt-Lobby</name>
 
     <description>FounderHunt Plugin</description>
     <properties>
