@@ -1,15 +1,15 @@
-package it.minecraft.founderhunt;
+package it.founderhunt;
 
 import com.google.common.collect.Maps;
-import it.minecraft.founderhunt.Commands.InfoCommand;
-import it.minecraft.founderhunt.Commands.KitCommand;
-import it.minecraft.founderhunt.Commands.SpawnpointCommand;
+import it.founderhunt.Commands.InfoCommand;
+import it.founderhunt.Commands.KitCommand;
+import it.founderhunt.Commands.SpawnpointCommand;
 import it.minecraft.founderhunt.Listeners.JoinQuitListener;
 import it.minecraft.founderhunt.Listeners.KillListener;
-import it.minecraft.founderhunt.Objects.Player;
-import it.minecraft.founderhunt.Utils.Config;
-import it.minecraft.founderhunt.Utils.PlaceHolders;
-import it.minecraft.founderhunt.Utils.Stats;
+import it.founderhunt.Objects.Player;
+import it.founderhunt.Utils.Config;
+import it.founderhunt.Utils.PlaceHolders;
+import it.founderhunt.Utils.Stats;
 import net.tecnocraft.utils.utils.Listeners;
 import net.tecnocraft.utils.utils.Log;
 import org.bukkit.Bukkit;

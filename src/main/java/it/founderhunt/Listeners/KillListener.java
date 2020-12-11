@@ -1,13 +1,12 @@
-package it.minecraft.founderhunt.Listeners;
+package it.founderhunt.Listeners;
 
-import it.minecraft.founderhunt.FounderHunt;
-import it.minecraft.founderhunt.Objects.Player;
+import it.founderhunt.FounderHunt;
+import it.founderhunt.Objects.Player;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class KillListener implements Listener {
 

@@ -1,7 +1,7 @@
-package it.minecraft.founderhunt.Utils;
+package it.founderhunt.Utils;
 
 import be.maximvdw.placeholderapi.PlaceholderAPI;
-import it.minecraft.founderhunt.FounderHunt;
+import it.founderhunt.FounderHunt;
 import org.bukkit.Bukkit;
 
 public class PlaceHolders {

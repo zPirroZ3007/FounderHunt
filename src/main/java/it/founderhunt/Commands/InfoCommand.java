@@ -1,7 +1,7 @@
-package it.minecraft.founderhunt.Commands;
+package it.founderhunt.Commands;
 
-import it.minecraft.founderhunt.FounderHunt;
-import it.minecraft.founderhunt.Objects.Player;
+import it.founderhunt.FounderHunt;
+import it.founderhunt.Objects.Player;
 import net.tecnocraft.utils.utils.CommandFramework;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;

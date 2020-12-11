@@ -1,7 +1,7 @@
-package it.minecraft.founderhunt.Listeners;
+package it.founderhunt.Listeners;
 
-import it.minecraft.founderhunt.FounderHunt;
-import it.minecraft.founderhunt.Objects.Player;
+import it.founderhunt.FounderHunt;
+import it.founderhunt.Objects.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
