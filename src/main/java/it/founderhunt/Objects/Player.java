@@ -1,8 +1,8 @@
-package it.minecraft.founderhunt.Objects;
+package it.founderhunt.Objects;
 
-import it.minecraft.founderhunt.Utils.Config;
-import it.minecraft.founderhunt.Utils.Stats;
-import it.minecraft.founderhunt.Utils.Utils;
+import it.founderhunt.Utils.Config;
+import it.founderhunt.Utils.Stats;
+import it.founderhunt.Utils.Utils;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Sound;

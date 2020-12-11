@@ -1,4 +1,4 @@
-package it.minecraft.founderhunt.Utils;
+package it.founderhunt.Utils;
 
 import com.google.common.collect.Maps;
 

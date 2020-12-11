@@ -1,7 +1,7 @@
-package it.minecraft.founderhunt.Utils;
+package it.founderhunt.Utils;
 
 import com.google.common.collect.Lists;
-import it.minecraft.founderhunt.FounderHunt;
+import it.founderhunt.FounderHunt;
 import lombok.SneakyThrows;
 import net.tecnocraft.utils.utils.Util;
 import org.bukkit.Bukkit;
@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class Utils {
@@ -49,7 +50,7 @@ public class Utils {
         List<T> list = Lists.newArrayList();
         list.addAll(set);
 
-        return list.get(Util.randNumber(0, set.size() - 1));
+        return list.get(new Random().nextInt(set.size()));
     }
 
 }

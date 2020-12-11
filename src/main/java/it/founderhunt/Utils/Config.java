@@ -1,6 +1,6 @@
-package it.minecraft.founderhunt.Utils;
+package it.founderhunt.Utils;
 
-import it.minecraft.founderhunt.FounderHunt;
+import it.founderhunt.FounderHunt;
 import net.tecnocraft.utils.utils.fileconfigurations.ConfigFile;
 
 public class Config {
