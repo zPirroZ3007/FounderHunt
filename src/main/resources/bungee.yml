@@ -1,7 +1,6 @@
 name: FounderHunt
 version: ${project.version}
-main: it.founderhunt.FounderHunt
-api-version: 1.15
-softdepend: [ TecnoUtilities, PlaceholderAPI ]
+main: it.founderhunt.bungee.Main
+softdepend: [ TecnoUtilities ]
 authors: [ Dani47, zPirroZ3007 ]
 description: FounderHunt Core

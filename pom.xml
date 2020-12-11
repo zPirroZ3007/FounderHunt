@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.founderhunt</groupId>
-    <artifactId>FounderHunt</artifactId>
+    <artifactId>FounderHunt-Bungee</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>FounderHunt</name>
+    <name>FounderHunt-Bungee</name>
 
-    <description>FounderHunt Plugin</description>
+    <description>FounderHunt-Bungee Plugin</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,33 +65,27 @@
             <url>https://repo.tecnocraft.net/service/rest/repository/browse/public/net/tecnocraft/</url>
         </repository>
         <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 
     <dependencies>
-        <!-- Dipendenze private, vanno importate manualmente per evitare di infrangere copyright o DMCA -->
-        <dependency>
-            <groupId>net.tecnocraft</groupId>
-            <artifactId>Paper</artifactId>
-            <version>1.15.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.tecnocraft</groupId>
-            <artifactId>QualityArmory</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.tecnocraft</groupId>
-            <artifactId>MVdWPlaceholderAPI</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Dipendenze pubbliche -->
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.16-R0.4-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.16-R0.4-SNAPSHOT</version>
+            <type>javadoc</type>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>net.tecnocraft</groupId>
             <artifactId>TecnoUtilities</artifactId>
