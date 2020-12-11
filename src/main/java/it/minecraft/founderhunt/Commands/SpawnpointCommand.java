@@ -16,7 +16,7 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 public class SpawnpointCommand extends SubCommandFramework {
     public SpawnpointCommand(String label, String... aliases) {
-        super(FounderHunt.get(), label, aliases);
+        super(FounderHunt.inst(), label, aliases);
     }
 
     @Override
@@ -70,17 +70,19 @@ public class SpawnpointCommand extends SubCommandFramework {
     @SubCommandDescription("Visualizza la lista degli spawnpoint")
     public void SpawnpointList(CommandSender sender, String label, String[] args) {
 
+        Player player = Validator.getPlayerSender(sender);
+
         if(Config.SPAWN.getSections().isEmpty()) {
-            sender.sendMessage(ChatColor.RED + "Non è stato impostato nessuno spawnpoint.");
+            player.sendMessage(ChatColor.RED + "Non è stato impostato nessuno spawnpoint.");
             return;
         }
 
-        sender.sendMessage("");
-        sender.sendMessage("§6Lista degli §lspawnpoint§r§6 impostati:");
+        player.sendMessage("");
+        player.sendMessage("§6Lista degli §lspawnpoint§r§6 impostati:");
         Config.SPAWN.getSections().forEach(section -> {
             Location location = Config.SPAWN.getLocation(section);
             assert location != null;
-            sender.sendMessage (
+            player.sendMessage (
                     new TextComponent(ChatColor.DARK_GRAY + " » "),
                     new TextComponent(ChatColor.WHITE + Utils.getCoords(location, true) + " "),
                     new TextComponentBuilder()
@@ -91,7 +93,7 @@ public class SpawnpointCommand extends SubCommandFramework {
                             .build()
             );
         });
-        sender.sendMessage("");
+        player.sendMessage("");
 
     }
 

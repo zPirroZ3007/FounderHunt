@@ -2,6 +2,6 @@ name: FounderHunt
 version: ${project.version}
 main: it.minecraft.founderhunt.FounderHunt
 api-version: 1.15
-softdepend: [ TecnoUtilities ]
+softdepend: [ TecnoUtilities, PlaceholderAPI ]
 authors: [ Dani47, zPirroZ3007 ]
 description: FounderHunt Plugin

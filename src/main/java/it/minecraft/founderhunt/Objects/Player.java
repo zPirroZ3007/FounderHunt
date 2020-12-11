@@ -4,6 +4,7 @@ import it.minecraft.founderhunt.Utils.Config;
 import it.minecraft.founderhunt.Utils.Stats;
 import it.minecraft.founderhunt.Utils.Utils;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
@@ -15,6 +16,9 @@ public class Player extends CraftPlayer {
 
     @Getter
     private int points;
+
+    @Getter @Setter
+    private int playerKilled;
 
     public Player (org.bukkit.entity.Player player) {
         super((CraftServer) player.getServer(), ((CraftPlayer) player).getHandle());
@@ -57,6 +61,8 @@ public class Player extends CraftPlayer {
         this.giveKit();
 
         playSound(getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.2F);
+        sendTitle("§a§lSTART!", "§7Dai la caccia ai Founder e uccidi tutti!", 10, 60, 10);
+
     }
 
     public boolean isVIP() {
@@ -69,23 +75,27 @@ public class Player extends CraftPlayer {
 
     public void addPoint(int n) {
         setPoints(getPoints() + n);
+        sendTitle("", "§6Hai ricevuto " + n + " " + (n == 1 ? "punto!" : "punti!"), 5, 30, 5);
+        playSound(getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1.3F);
     }
 
     public void remPoint() {
         remPoint(1);
     }
-
     public void remPoint(int n) {
         if(getPoints() - n < 0)
             setPoints(0);
 
         setPoints(getPoints() - n);
     }
-
     public void setPoints(int points) {
         this.points = points;
 
         // TODO Aggiorna il valore nel database (in asincrono?)
+    }
+
+    public void addKill() {
+        setPlayerKilled(getPlayerKilled() + 1);
     }
 
 }

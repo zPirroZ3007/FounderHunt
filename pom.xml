@@ -66,13 +66,23 @@
             <id>tecnocraft-public</id>
             <url>https://repo.tecnocraft.net/service/rest/repository/browse/public/net/tecnocraft/</url>
         </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>net.tecnocraft</groupId>
-            <artifactId>TecnoUtilities</artifactId>
-            <version>1.0</version>
+            <artifactId>Paper</artifactId>
+            <version>1.15.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.tecnocraft</groupId>
+            <artifactId>TecnoUtils</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -81,14 +91,14 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Dipendenze private, vanno importate manualmente per evitare di infrangere copyright o DMCA -->
         <dependency>
             <groupId>net.tecnocraft</groupId>
-            <artifactId>Paper</artifactId>
-            <version>1.15.2</version>
+            <artifactId>MVdWPlaceholderAPI</artifactId>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Dipendenze private, vanno importate manualmente per evitare di infrangere copyright o DMCA -->
         <dependency>
             <groupId>net.tecnocraft</groupId>
             <artifactId>QualityArmory</artifactId>

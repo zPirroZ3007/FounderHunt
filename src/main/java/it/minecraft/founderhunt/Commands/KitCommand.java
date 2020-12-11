@@ -2,7 +2,6 @@ package it.minecraft.founderhunt.Commands;
 
 import it.minecraft.founderhunt.FounderHunt;
 import it.minecraft.founderhunt.Utils.Config;
-import it.minecraft.founderhunt.Utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import net.tecnocraft.utils.utils.SubCommandFramework;
 import org.bukkit.command.CommandSender;
@@ -13,7 +12,7 @@ import java.util.Arrays;
 
 public class KitCommand extends SubCommandFramework {
     public KitCommand(String label, String... aliases) {
-        super(FounderHunt.get(), label, aliases);
+        super(FounderHunt.inst(), label, aliases);
     }
 
     @Override

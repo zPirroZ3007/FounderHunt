@@ -10,12 +10,12 @@ public class Config {
 
     public static void initalize() {
         createFolder();
-        SPAWN = ConfigFile.initialize("spawnpoints", FounderHunt.get());
-        KITS = ConfigFile.initialize("kits", FounderHunt.get());
+        SPAWN = ConfigFile.initialize("spawnpoints", FounderHunt.inst());
+        KITS = ConfigFile.initialize("kits", FounderHunt.inst());
     }
 
     private static void createFolder() {
-        FounderHunt founderHunt = FounderHunt.get();
+        FounderHunt founderHunt = FounderHunt.inst();
 
         if (!founderHunt.getDataFolder().exists())
             if(founderHunt.getDataFolder().mkdir())
