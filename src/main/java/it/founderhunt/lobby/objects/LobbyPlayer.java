@@ -1,0 +1,23 @@
+package it.founderhunt.lobby.objects;
+
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+
+public class LobbyPlayer extends CraftPlayer {
+
+    public LobbyPlayer(Player player) {
+        super((CraftServer) player.getServer(), ((CraftPlayer) player).getHandle());
+    }
+
+    public static LobbyPlayer to(Player entity) {
+        if(entity == null) return null;
+        return new LobbyPlayer(entity);
+    }
+
+    public void addPotionEffects(PotionEffect... effects) {
+        for (PotionEffect effect : effects)
+            addPotionEffect(effect);
+    }
+}

@@ -1,7 +1,6 @@
 name: FounderHunt
 version: ${project.version}
-main: it.founderhunt.lobby.FounderHunt
-api-version: 1.8
-softdepend: [ TecnoUtilities ]
+main: it.founderhunt.lobby.Main
+softdepend: [ TecnoUtilities, AuthMe ]
 authors: [ Dani47, zPirroZ3007 ]
 description: FounderHunt Core

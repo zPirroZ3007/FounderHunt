@@ -1,5 +1,7 @@
 package it.founderhunt.lobby;
 
+import it.founderhunt.lobby.listeners.AuthMeListener;
+import it.founderhunt.lobby.listeners.JoinQuitListener;
 import it.founderhunt.lobby.listeners.PreventListener;
 import lombok.Getter;
 import net.tecnocraft.utils.utils.Listeners;
@@ -13,7 +15,10 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        Listeners.register(getInstance(), PreventListener.to());
+        Listeners.register(getInstance(),
+                PreventListener.to(),
+                JoinQuitListener.to(),
+                AuthMeListener.to());
     }
 
     @Override

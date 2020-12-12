@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class PreventListener implements Listener {
 
@@ -26,8 +27,12 @@ public class PreventListener implements Listener {
         event.setCancelled(true);
     }
 
-    public static PreventListener to() {
-        return new PreventListener();
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void preventMove(PlayerMoveEvent event) {
+        event.setTo(event.getFrom());
     }
 
+    public static Listener to() {
+        return new PreventListener();
+    }
 }
