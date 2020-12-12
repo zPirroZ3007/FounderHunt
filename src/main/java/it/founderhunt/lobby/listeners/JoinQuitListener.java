@@ -1,7 +1,6 @@
 package it.founderhunt.lobby.listeners;
 
 import com.connorlinfoot.titleapi.TitleAPI;
-import it.founderhunt.lobby.Main;
 import it.founderhunt.lobby.objects.LobbyPlayer;
 import it.founderhunt.lobby.util.Icons;
 import org.bukkit.Bukkit;

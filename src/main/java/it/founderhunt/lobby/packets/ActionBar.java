@@ -7,11 +7,10 @@ import org.bukkit.entity.Player;
 
 public class ActionBar {
 
-    private PacketPlayOutChat packet;
+    private final PacketPlayOutChat packet;
 
     public ActionBar(String text) {
-        PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + text + "\"}"), (byte) 2);
-        this.packet = packet;
+        this.packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + text + "\"}"), (byte) 2);
     }
 
     public void sendToPlayer(Player p) {

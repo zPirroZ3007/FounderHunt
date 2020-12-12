@@ -1,24 +1,19 @@
 package it.founderhunt.lobby.util;
 
-import com.google.common.base.Charsets;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class ItemStackBuilder {
     private Material material;
-    private List<String> lore = new ArrayList();
+    private final List<String> lore = new ArrayList();
     private List<ItemFlag> flagsL = new ArrayList();
     private String name;
     private int quantity;
