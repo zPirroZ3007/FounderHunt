@@ -24,10 +24,6 @@ public class Utils {
         player.sendPluginMessage(Main.getInstance(), "BungeeCord", b.toByteArray());
     }
 
-    public static int getBungeeOnlineCount(Player player) {
-        return Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%bungee_total%"));
-    }
-
     public static int getBungeeOnlineCountIn(Player player, String server) {
         return Integer.parseInt(PlaceholderAPI.setPlaceholders(player, "%bungee_" + server + "%"));
     }
