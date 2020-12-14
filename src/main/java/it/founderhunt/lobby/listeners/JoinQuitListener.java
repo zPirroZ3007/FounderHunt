@@ -19,10 +19,14 @@ public class JoinQuitListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
         LobbyPlayer player = LobbyPlayer.to(event.getPlayer());
+
         event.setJoinMessage(null);
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-            p.hidePlayer(player);
-            player.hidePlayer(p);
+            if(p == event.getPlayer())
+                continue;
+
+            p.hidePlayer(event.getPlayer());
+            event.getPlayer().hidePlayer(p);
         }
 
         player.addPotionEffects(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
