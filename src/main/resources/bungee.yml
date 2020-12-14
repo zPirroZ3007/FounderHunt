@@ -1,6 +1,4 @@
 name: FounderHunt
 version: ${project.version}
 main: it.founderhunt.bungee.Main
-softdepend: [ TecnoUtilities ]
-authors: [ Dani47, zPirroZ3007 ]
 description: FounderHunt Core
