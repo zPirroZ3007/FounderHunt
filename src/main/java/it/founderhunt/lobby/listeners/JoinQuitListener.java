@@ -13,8 +13,6 @@ public class JoinQuitListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent event) {
-        LobbyPlayer player = LobbyPlayer.to(event.getPlayer());
-
         event.setJoinMessage(null);
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
             if(p == event.getPlayer())
