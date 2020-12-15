@@ -1,6 +1,7 @@
 package it.founderhunt.bungee;
 
 import it.founderhunt.bungee.commands.GameTitle;
+import it.founderhunt.bungee.commands.Hub;
 import it.founderhunt.bungee.commands.Reload;
 import it.founderhunt.bungee.listeners.MatchLobby;
 import it.founderhunt.bungee.listeners.Motd;
@@ -34,6 +35,7 @@ public class Main extends Plugin {
     private void registerCommands() {
         Reload.to();
         GameTitle.to();
+        Hub.to();
     }
 
     private void registerListeners() {
