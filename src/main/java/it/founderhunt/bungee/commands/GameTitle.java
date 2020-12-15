@@ -2,6 +2,7 @@ package it.founderhunt.bungee.commands;
 
 import it.founderhunt.bungee.Main;
 import it.founderhunt.bungee.util.Perms;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.tecnocraft.utils.chat.MessengerBungee;
@@ -25,7 +26,7 @@ public class GameTitle extends BungeeCommandFramework {
 
         for (ProxiedPlayer p : Main.getInstance().getProxy().getPlayers())
             if (p.getServer().getInfo().getName().startsWith("game-"))
-                MessengerBungee.sendTitle(p, "§e§lAttenzione!", sb.toString());
+                MessengerBungee.sendTitle(p, "§e§lAttenzione!", ChatColor.translateAlternateColorCodes('&', "§7" + sb.toString()));
 
         MessengerBungee.sendSuccessMessage(sender, "Title inviato con successo!");
     }
