@@ -31,7 +31,7 @@ public class AdminCommands extends SubCommandFramework {
     public void setMode(CommandSender sender, String label, String[] args) {
         GameModes mode;
         try {
-            mode = GameModes.valueOf(args[0]);
+            mode = GameModes.valueOf(args[0].toUpperCase());
         } catch (IllegalArgumentException ex) {
             throw new CommandFramework.ExecuteException("Questo valore non esiste!");
         }

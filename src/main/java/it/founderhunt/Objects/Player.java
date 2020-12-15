@@ -70,7 +70,7 @@ public class Player extends CraftPlayer {
     }
 
     public void addPoint() {
-        addPoint(1);
+        addPoint(100);
     }
 
     public void addPoint(int n) {
@@ -80,7 +80,7 @@ public class Player extends CraftPlayer {
     }
 
     public void remPoint() {
-        remPoint(1);
+        remPoint(100);
     }
     public void remPoint(int n) {
         if(getPoints() - n < 0)

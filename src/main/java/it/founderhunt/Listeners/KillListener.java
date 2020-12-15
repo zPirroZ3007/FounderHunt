@@ -2,6 +2,8 @@ package it.founderhunt.Listeners;
 
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
+import it.founderhunt.Utils.Utils;
+import it.founderhunt.enums.GameModes;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -20,7 +22,9 @@ public class KillListener implements Listener {
 
             Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
 
-            killed.remPoint();
+            if(Utils.getMode() == GameModes.RISCALDAMENTO)
+                return;
+
             killer.addPoint();
             killer.addKill();
         }
