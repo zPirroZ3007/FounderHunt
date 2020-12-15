@@ -16,7 +16,7 @@ public class AuthMeListener implements Listener {
         Player player = event.getPlayer();
 
         player.setGameMode(GameMode.CREATIVE);
-        TitleAPI.sendTitle(player, 3, 60, 3, "§c§lFounderHunt - Benvenuto!", "§7Seleziona una partita per iniziare");
+        TitleAPI.sendTitle(player, 3, 60, 3, "§c§lFounderHunt", "§7Benvenuto, seleziona una partita per iniziare");
 
         player.getInventory().clear();
         player.getInventory().setItem(4, Icons.SELECTOR);
