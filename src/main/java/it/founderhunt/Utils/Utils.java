@@ -2,6 +2,9 @@ package it.founderhunt.Utils;
 
 import com.google.common.collect.Lists;
 import it.founderhunt.FounderHunt;
+import it.founderhunt.enums.GameModes;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import net.tecnocraft.utils.utils.Util;
 import org.bukkit.Bukkit;
@@ -20,6 +23,10 @@ import java.util.Random;
 import java.util.Set;
 
 public class Utils {
+
+    @Getter
+    @Setter
+    public static GameModes mode = GameModes.RISCALDAMENTO;
 
     public static Location roundedLocation(Location location) {
         Location roundedLocation = location.clone();

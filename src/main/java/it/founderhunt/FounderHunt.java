@@ -1,6 +1,7 @@
 package it.founderhunt;
 
 import com.google.common.collect.Maps;
+import it.founderhunt.Commands.AdminCommands;
 import it.founderhunt.Commands.InfoCommand;
 import it.founderhunt.Commands.KitCommand;
 import it.founderhunt.Commands.SpawnpointCommand;
@@ -32,11 +33,12 @@ public final class FounderHunt extends JavaPlugin {
         Stats.loadAll();
         PlaceHolders.register();
 
-        Bukkit.getOnlinePlayers().forEach(player -> {
-            Player FHPlayer = Player.to(player);
-            PLAYERS.putIfAbsent(player.getName(), FHPlayer);
-            FHPlayer.teleportSpawnpoint();
-        });
+        if (!Config.SPAWN.getSections().isEmpty())
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                Player FHPlayer = Player.to(player);
+                PLAYERS.putIfAbsent(player.getName(), FHPlayer);
+                FHPlayer.teleportSpawnpoint();
+            });
 
         Log.onEnable(this);
     }
@@ -55,6 +57,7 @@ public final class FounderHunt extends JavaPlugin {
         new KitCommand("founderhuntkit", "fhkit");
         new SpawnpointCommand("founderhuntspawnpoint", "fhspawnpoint", "fhsp");
         new InfoCommand(this, "info");
+        new AdminCommands();
     }
 
     private void registerEvents() {
