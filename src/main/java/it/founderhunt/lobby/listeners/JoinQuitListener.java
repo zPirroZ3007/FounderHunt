@@ -1,6 +1,5 @@
 package it.founderhunt.lobby.listeners;
 
-import it.founderhunt.lobby.objects.LobbyPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
