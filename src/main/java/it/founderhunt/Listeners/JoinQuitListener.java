@@ -16,9 +16,10 @@ public class JoinQuitListener implements Listener {
         event.setJoinMessage(null);
 
         Player player = Player.to(event.getPlayer());
+
         Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () -> {
             Stats.loadPlayer(player.getName());
-            FounderHunt.PLAYERS.put(event.getPlayer().getName(), Player.to(event.getPlayer()));
+            FounderHunt.PLAYERS.put(event.getPlayer().getName(), player);
         });
 
         player.teleportSpawnpoint();
