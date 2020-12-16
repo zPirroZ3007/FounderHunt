@@ -1,14 +1,13 @@
 package it.founderhunt.Commands;
 
-import com.destroystokyo.paper.Title;
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
 import net.tecnocraft.utils.chat.Messenger;
-import net.tecnocraft.utils.utils.CommandFramework;
 import net.tecnocraft.utils.utils.SubCommandFramework;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,31 +31,21 @@ public class AdminCommands extends SubCommandFramework {
     @SubCommandPermission(Perms.ADMIN)
     @SuppressWarnings("unused")
     public void setMode(CommandSender sender, String label, String[] args) {
-        GameModes mode;
-        try {
-            mode = GameModes.valueOf(args[0].toUpperCase());
-        } catch (IllegalArgumentException ex) {
-            throw new CommandFramework.ExecuteException("Questo valore non esiste!");
+
+        GameModes gameMode = GameModes.to(args[0]);
+        Utils.setMode(gameMode);
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+
+            if(Utils.getMode().equals(GameModes.COMPETITIVO))
+                player.sendTitle("§c§lCOMPETIZIONE!", "§7Adesso le uccisioni verranno contate!", 10, 60 , 10);
+            else if (Utils.getMode().equals(GameModes.RISCALDAMENTO))
+                player.sendTitle("§e§lRISCALDAMENTO!", "§7I punti non verranno assegnati per le uccisioni", 10, 60, 10);
+
+            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.2F);
+
         }
 
-        Utils.setMode(mode);
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            it.founderhunt.Objects.Player player = new it.founderhunt.Objects.Player(p);
-            Title title = null;
-            
-            switch (Utils.getMode()) {
-                case COMPETITIVO:
-                    title = new Title("§c§lCOMPETIZIONE INIZIATA!", "§7Adesso le uccisioni verranno contate!", 10, 60 , 10);
-                    break;
-                case RISCALDAMENTO:
-                    title = new Title("§e§lMODALITA' RISCALDAMENTO!", "§7I punti non verranno assegnati per le uccisioni", 10, 60, 10);
-                    break;
-            }
-            
-            player.sendTitle(title);
-        }
-
-        Messenger.sendSuccessMessage(sender, "Modalità di gioco impostata su: " + mode.name() + "!");
+        Messenger.sendSuccessMessage(sender, "Modalità di gioco impostata su " + gameMode.name() + "!");
     }
 }

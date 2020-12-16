@@ -32,11 +32,14 @@ public class PreventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventItemMove(InventoryClickEvent event) {
+
         event.setCancelled(true);
+
         if (!(event.getWhoClicked() instanceof Player))
             return;
-        org.bukkit.entity.Player player = (org.bukkit.entity.Player) event.getWhoClicked();
-        player.updateInventory();
+
+        Player player = (Player) event.getWhoClicked();
+        player.getHandle().updateInventory(player.getHandle().activeContainer);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -44,10 +47,11 @@ public class PreventListener implements Listener {
         event.setCancelled(true);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR) public void preventRain(WeatherChangeEvent event) {
-        if(!event.toWeatherState())
-            return;
-        event.setCancelled(true);
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void preventRain(WeatherChangeEvent event) {
+
+        if(event.toWeatherState())
+            event.setCancelled(true);
     }
 
     public static Listener to() {
