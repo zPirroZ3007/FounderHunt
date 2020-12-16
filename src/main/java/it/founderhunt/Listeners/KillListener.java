@@ -17,16 +17,15 @@ public class KillListener implements Listener {
 
         Player killed = FounderHunt.PLAYERS.get(event.getEntity().getName());
 
-        if(event.getEntity().getKiller() != null) {
+        if (event.getEntity().getKiller() != null) {
             Player killer = FounderHunt.PLAYERS.get(event.getEntity().getKiller().getName());
 
             Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
 
-            if(Utils.getMode() == GameModes.RISCALDAMENTO)
-                return;
-
-            killer.addPoint();
-            killer.addKill();
+            if (Utils.getMode() != GameModes.RISCALDAMENTO) {
+                killer.addPoint();
+                killer.addKill();
+            }
         }
 
         event.getDrops().clear();

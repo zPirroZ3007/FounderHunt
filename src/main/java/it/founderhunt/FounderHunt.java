@@ -7,6 +7,7 @@ import it.founderhunt.Commands.KitCommand;
 import it.founderhunt.Commands.SpawnpointCommand;
 import it.founderhunt.Listeners.JoinQuitListener;
 import it.founderhunt.Listeners.KillListener;
+import it.founderhunt.Listeners.PreventListener;
 import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.PlaceHolders;
@@ -61,7 +62,7 @@ public final class FounderHunt extends JavaPlugin {
     }
 
     private void registerEvents() {
-        Listeners.register(this, new JoinQuitListener(), new KillListener());
+        Listeners.register(this, new JoinQuitListener(), new KillListener(), new PreventListener());
     }
 
 }
