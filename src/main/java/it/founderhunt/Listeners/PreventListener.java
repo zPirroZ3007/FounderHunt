@@ -1,5 +1,6 @@
 package it.founderhunt.Listeners;
 
+import it.founderhunt.Objects.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -31,6 +32,10 @@ public class PreventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventItemMove(InventoryClickEvent event) {
         event.setCancelled(true);
+        if (!(event.getWhoClicked() instanceof Player))
+            return;
+        org.bukkit.entity.Player player = (org.bukkit.entity.Player) event.getWhoClicked();
+        player.updateInventory();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

@@ -2,6 +2,8 @@ package it.founderhunt.Listeners;
 
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
+import it.founderhunt.Utils.Stats;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -11,9 +13,13 @@ public class JoinQuitListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        event.setJoinMessage(null);
 
         Player player = Player.to(event.getPlayer());
-        FounderHunt.PLAYERS.putIfAbsent(event.getPlayer().getName(), player);
+        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () -> {
+            Stats.loadPlayer(player.getName());
+            FounderHunt.PLAYERS.put(event.getPlayer().getName(), Player.to(event.getPlayer()));
+        });
 
         player.teleportSpawnpoint();
 
@@ -21,9 +27,7 @@ public class JoinQuitListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-
-        FounderHunt.PLAYERS.remove(event.getPlayer().getName());
-
+        event.setQuitMessage(null);
     }
 
 }

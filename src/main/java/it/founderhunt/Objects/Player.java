@@ -1,10 +1,13 @@
 package it.founderhunt.Objects;
 
+import it.founderhunt.FounderHunt;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.Stats;
 import it.founderhunt.Utils.Utils;
+import it.founderhunt.database.Database;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
@@ -17,16 +20,18 @@ public class Player extends CraftPlayer {
     @Getter
     private int points;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private int playerKilled;
 
-    public Player (org.bukkit.entity.Player player) {
+    public Player(org.bukkit.entity.Player player) {
         super((CraftServer) player.getServer(), ((CraftPlayer) player).getHandle());
-        setPoints(Stats.MAP.getOrDefault(player.getName(), 0));
+        this.points = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0)).getPoints();
+        this.playerKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0)).getKills();
     }
 
     public static Player to(org.bukkit.entity.Player player) {
-        if(player == null) return null;
+        if (player == null) return null;
         return new Player(player);
     }
 
@@ -44,7 +49,7 @@ public class Player extends CraftPlayer {
     @SuppressWarnings("deprecation")
     public void giveKit() {
 
-        if(isVIP()) {
+        if (isVIP()) {
             Config.KITS.getSections("kit.vip").forEach(slot -> getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.vip." + slot)));
         } else {
             Config.KITS.getSections("kit.normal").forEach(slot -> getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.normal." + slot)));
@@ -82,20 +87,26 @@ public class Player extends CraftPlayer {
     public void remPoint() {
         remPoint(100);
     }
+
     public void remPoint(int n) {
-        if(getPoints() - n < 0)
+        if (getPoints() - n < 0)
             setPoints(0);
 
         setPoints(getPoints() - n);
     }
+
     public void setPoints(int points) {
         this.points = points;
 
-        // TODO Aggiorna il valore nel database (in asincrono?)
+        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
+                Database.update("UPDATE `stats` SET `points`=? WHERE username=?", getPoints(), getName()));
     }
 
     public void addKill() {
         setPlayerKilled(getPlayerKilled() + 1);
+
+        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
+                Database.update("UPDATE `stats` SET `kills`=? WHERE username=?", getPlayerKilled(), getName()));
     }
 
 }

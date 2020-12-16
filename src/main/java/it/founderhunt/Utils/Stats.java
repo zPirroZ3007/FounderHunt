@@ -1,22 +1,42 @@
 package it.founderhunt.Utils;
 
 import com.google.common.collect.Maps;
+import it.founderhunt.Objects.Data;
+import it.founderhunt.database.Database;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 
 public class Stats {
 
-    public static HashMap<String, Integer> MAP = Maps.newHashMap();
+    public static HashMap<String, Data> MAP = Maps.newHashMap();
 
     public static void loadAll() {
-        // TODO Prende tutti i dati nel database e li memorizza nella mappa in alto.
 
-        /*
-            for(Row row : Database) {
-                MAP.putIfAbsent(row.getPlayerName(), row.getPoints());
-            }
+        try (PreparedStatement ps = Database.getConnection().prepareStatement("SELECT * FROM stats;")) {
+            ResultSet rs = ps.executeQuery();
 
-         */
+            while (rs.next())
+                MAP.put(rs.getString("username"), new Data(rs.getInt("points"), rs.getInt("kills")));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static void loadPlayer(String username) {
+        try (PreparedStatement ps = Database.getConnection().prepareStatement("SELECT * FROM stats WHERE username=?;")) {
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next())
+                MAP.put(rs.getString("username"), new Data(rs.getInt("points"), rs.getInt("kills")));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

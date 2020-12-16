@@ -37,7 +37,7 @@ public final class FounderHunt extends JavaPlugin {
         if (!Config.SPAWN.getSections().isEmpty())
             Bukkit.getOnlinePlayers().forEach(player -> {
                 Player FHPlayer = Player.to(player);
-                PLAYERS.putIfAbsent(player.getName(), FHPlayer);
+                PLAYERS.put(player.getName(), FHPlayer);
                 FHPlayer.teleportSpawnpoint();
             });
 
