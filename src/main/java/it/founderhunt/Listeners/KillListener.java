@@ -26,8 +26,10 @@ public class KillListener implements Listener {
                 StringBuilder sb = new StringBuilder();
                 boolean start = false;
                 for (String p : AssistKillHandler.ASSISTS.get(killed.getName())) {
-                    if (Utils.getMode() != GameModes.RISCALDAMENTO)
+                    if (Utils.getMode() != GameModes.RISCALDAMENTO) {
                         FounderHunt.PLAYERS.get(p).addAssistPoint();
+                        FounderHunt.PLAYERS.get(p).addAssistKill();
+                    }
                     if (!start)
                         sb.append(p);
                     else

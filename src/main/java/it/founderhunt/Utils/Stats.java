@@ -18,7 +18,7 @@ public class Stats {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
-                MAP.put(rs.getString("username"), new Data(rs.getInt("points"), rs.getInt("kills")));
+                MAP.put(rs.getString("username"), new Data(rs.getInt("points"), rs.getInt("kills"), rs.getInt("assists")));
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -32,7 +32,7 @@ public class Stats {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next())
-                MAP.put(rs.getString("username"), new Data(rs.getInt("points"), rs.getInt("kills")));
+                MAP.put(rs.getString("username"), new Data(rs.getInt("points"), rs.getInt("kills"), rs.getInt("assists")));
 
         } catch (Exception ex) {
             ex.printStackTrace();

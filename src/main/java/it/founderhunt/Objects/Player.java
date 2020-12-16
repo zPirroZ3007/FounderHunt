@@ -23,11 +23,15 @@ public class Player extends CraftPlayer {
     @Getter
     @Setter
     private int playerKilled;
+    @Getter
+    @Setter
+    private int playerAssistKilled;
 
     public Player(org.bukkit.entity.Player player) {
         super((CraftServer) player.getServer(), ((CraftPlayer) player).getHandle());
-        this.points = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0)).getPoints();
-        this.playerKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0)).getKills();
+        this.points = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0)).getPoints();
+        this.playerKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0)).getKills();
+        this.playerAssistKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0)).getAssistKills();
     }
 
     public static Player to(org.bukkit.entity.Player player) {
@@ -111,6 +115,13 @@ public class Player extends CraftPlayer {
 
         Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
                 Database.update("UPDATE `stats` SET `kills`=? WHERE username=?", getPlayerKilled(), getName()));
+    }
+
+    public void addAssistKill() {
+        setPlayerAssistKilled(getPlayerAssistKilled() + 1);
+
+        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
+                Database.update("UPDATE `stats` SET `assists`=? WHERE username=?", getPlayerAssistKilled(), getName()));
     }
 
 }
