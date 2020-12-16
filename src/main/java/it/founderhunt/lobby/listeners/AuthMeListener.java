@@ -2,7 +2,10 @@ package it.founderhunt.lobby.listeners;
 
 import com.connorlinfoot.titleapi.TitleAPI;
 import fr.xephi.authme.events.LoginEvent;
+import it.founderhunt.lobby.Main;
 import it.founderhunt.lobby.util.Icons;
+import it.founderhunt.lobby.util.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +24,8 @@ public class AuthMeListener implements Listener {
         player.getInventory().clear();
         player.getInventory().setItem(4, Icons.SELECTOR);
         player.getInventory().setHeldItemSlot(4);
+
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> Utils.createUser(player.getName()));
     }
 
     public static Listener to() {
