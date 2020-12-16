@@ -23,8 +23,13 @@ public class KillListener implements Listener {
             Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
 
             if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                killer.addPoint();
-                killer.addKill();
+                if (isAssist(killed.getName())) {
+                    for (String p : AssistKillHandler.ASSISTS.get(killed.getName()))
+                        FounderHunt.PLAYERS.get(p).addAssistPoint();
+                } else {
+                    killer.addPoint();
+                    killer.addKill();
+                }
             }
         }
 
@@ -33,6 +38,13 @@ public class KillListener implements Listener {
 
         killed.teleportSpawnpoint();
 
+    }
+
+    public boolean isAssist(String username) {
+        if (!AssistKillHandler.ASSISTS.containsKey(username))
+            return false;
+
+        return AssistKillHandler.ASSISTS.get(username).size() > 1;
     }
 
 }

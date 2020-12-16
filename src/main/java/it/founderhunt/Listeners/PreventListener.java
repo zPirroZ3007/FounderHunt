@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 
 public class PreventListener implements Listener {
 
@@ -40,6 +41,12 @@ public class PreventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventItemDrop(PlayerDropItemEvent event) {
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR) public void preventRain(WeatherChangeEvent event) {
+        if(!event.toWeatherState())
+            return;
         event.setCancelled(true);
     }
 

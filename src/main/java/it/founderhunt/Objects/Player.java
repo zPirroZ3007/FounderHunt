@@ -78,6 +78,10 @@ public class Player extends CraftPlayer {
         addPoint(100);
     }
 
+    public void addAssistPoint() {
+        addPoint(30);
+    }
+
     public void addPoint(int n) {
         setPoints(getPoints() + n);
         sendTitle("", "§6Hai ricevuto " + n + " " + (n == 1 ? "punto!" : "punti!"), 5, 30, 5);
