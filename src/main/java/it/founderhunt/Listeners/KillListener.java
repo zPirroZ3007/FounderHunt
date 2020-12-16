@@ -4,6 +4,7 @@ import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
+import net.tecnocraft.utils.utils.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -20,13 +21,25 @@ public class KillListener implements Listener {
         if (event.getEntity().getKiller() != null) {
             Player killer = FounderHunt.PLAYERS.get(event.getEntity().getKiller().getName());
 
-            Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
 
-            if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                if (isAssist(killed.getName())) {
-                    for (String p : AssistKillHandler.ASSISTS.get(killed.getName()))
+            if (isAssist(killed.getName())) {
+                StringBuilder sb = new StringBuilder();
+                boolean start = false;
+                for (String p : AssistKillHandler.ASSISTS.get(killed.getName())) {
+                    if (Utils.getMode() != GameModes.RISCALDAMENTO)
                         FounderHunt.PLAYERS.get(p).addAssistPoint();
-                } else {
+                    if (!start)
+                        sb.append(p);
+                    else
+                        sb.append(" + ").append(p);
+                    start = true;
+                }
+                AssistKillHandler.ASSISTS.remove(killed.getName());
+
+                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s hanno ucciso %s.", sb.toString(), killed.getName()));
+            } else {
+                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
+                if (Utils.getMode() != GameModes.RISCALDAMENTO) {
                     killer.addPoint();
                     killer.addKill();
                 }
