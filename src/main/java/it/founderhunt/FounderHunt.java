@@ -10,6 +10,7 @@ import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.PlaceHolders;
 import it.founderhunt.Utils.Stats;
+import net.tecnocraft.utils.chat.Messenger;
 import net.tecnocraft.utils.utils.Listeners;
 import net.tecnocraft.utils.utils.Log;
 import org.bukkit.Bukkit;
@@ -38,6 +39,7 @@ public final class FounderHunt extends JavaPlugin {
                 PLAYERS.put(player.getName(), FHPlayer);
                 FHPlayer.teleportSpawnpoint();
             });
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Bukkit.getOnlinePlayers().forEach(player -> Messenger.sendWarnActionBarMessage(player, "§eSblocca vantaggi su: §6https://store.FounderHunt.it")), 20, 20);
 
         Log.onEnable(this);
     }

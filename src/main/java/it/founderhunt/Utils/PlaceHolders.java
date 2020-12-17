@@ -11,8 +11,7 @@ public class PlaceHolders {
 
         PlaceholderAPI.registerPlaceholder(FounderHunt.inst(), "kills", event -> String.valueOf(FounderHunt.PLAYERS.get(event.getPlayer().getName()).getPlayerKilled()));
 
-        PlaceholderAPI.registerPlaceholder(FounderHunt.inst(), "numonline", event -> String.valueOf(Bukkit.getOnlinePlayers().size())
-        );
+        PlaceholderAPI.registerPlaceholder(FounderHunt.inst(), "numonline", event -> String.valueOf(Bukkit.getOnlinePlayers().size()));
 
         PlaceholderAPI.registerPlaceholder(FounderHunt.inst(), "booster", event -> Utils.BOOSTER ? "On" : "Off");
     }
