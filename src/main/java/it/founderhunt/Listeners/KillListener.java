@@ -60,6 +60,9 @@ public class KillListener implements Listener {
 
         killed.teleportSpawnpoint();
         SPAWNKILL.add(killed.getName());
+        killed.setFoodLevel(20);
+
+        Messenger.sendWarnMessage(killed, "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
 

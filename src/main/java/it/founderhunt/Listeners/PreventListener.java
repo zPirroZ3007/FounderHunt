@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -56,6 +57,14 @@ public class PreventListener implements Listener {
 
         if (event.toWeatherState())
             event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void preventHungerLose(FoodLevelChangeEvent event) {
+        event.setCancelled(true);
+        if (event.getEntity() instanceof org.bukkit.entity.Player)
+            if (event.getFoodLevel() < 20)
+                ((org.bukkit.entity.Player) event.getEntity()).setFoodLevel(20);
     }
 
     public static Listener to() {
