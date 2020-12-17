@@ -31,30 +31,34 @@ public class KillListener implements Listener {
                 StringBuilder sb = new StringBuilder();
                 boolean start = false;
                 for (String p : AssistKillHandler.ASSISTS.get(killed.getName())) {
-                    if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                        FounderHunt.PLAYERS.get(p).addAssistPoint();
-                        FounderHunt.PLAYERS.get(p).addAssistKill();
-                        killed.addDeath();
-                    }
+                    if (!p.equals(killed.getName()))
+                        if (Utils.getMode() != GameModes.RISCALDAMENTO) {
+                            FounderHunt.PLAYERS.get(p).addAssistPoint();
+                            FounderHunt.PLAYERS.get(p).addAssistKill();
+                            killed.addDeath();
+                        }
                     if (!start)
                         sb.append(p);
                     else
                         sb.append(" + ").append(p);
                     start = true;
                 }
-                AssistKillHandler.ASSISTS.remove(killed.getName());
 
                 Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s hanno ucciso %s.", sb.toString(), killed.getName()));
             } else {
+
                 Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
-                if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                    killer.addPoint();
-                    killer.addKill();
-                    killed.addDeath();
-                }
+
+                if (!killed.getName().equals(killer.getName()))
+                    if (Utils.getMode() != GameModes.RISCALDAMENTO) {
+                        killer.addPoint();
+                        killer.addKill();
+                        killed.addDeath();
+                    }
             }
         }
 
+        AssistKillHandler.ASSISTS.remove(killed.getName());
         event.getDrops().clear();
         event.setCancelled(true);
 
@@ -79,7 +83,7 @@ public class KillListener implements Listener {
         SPAWNKILL.remove(username);
 
         org.bukkit.entity.Player p = Bukkit.getPlayerExact(username);
-        if(p != null)
+        if (p != null)
             Messenger.sendWarnMessage(p, "Adesso puoi colpire ed essere colpito!");
     }
 
