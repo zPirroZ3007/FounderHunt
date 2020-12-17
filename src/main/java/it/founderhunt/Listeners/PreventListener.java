@@ -1,6 +1,7 @@
 package it.founderhunt.Listeners;
 
 import it.founderhunt.Objects.Player;
+import it.founderhunt.Utils.Perms;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -25,7 +26,10 @@ public class PreventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventChat(AsyncPlayerChatEvent event) {
+        event.setFormat("§8[Organizzatore] §a" + event.getPlayer().getName() + " §8» §7" + event.getMessage());
         if (event.getMessage().startsWith("/"))
+            return;
+        if (event.getPlayer().hasPermission(Perms.ADMIN))
             return;
         event.setCancelled(true);
     }
@@ -50,7 +54,7 @@ public class PreventListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventRain(WeatherChangeEvent event) {
 
-        if(event.toWeatherState())
+        if (event.toWeatherState())
             event.setCancelled(true);
     }
 

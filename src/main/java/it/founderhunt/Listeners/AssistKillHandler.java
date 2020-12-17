@@ -2,6 +2,7 @@ package it.founderhunt.Listeners;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import net.tecnocraft.utils.chat.Messenger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,11 +19,23 @@ public class AssistKillHandler implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void handleAssist(EntityDamageByEntityEvent event) {
 
+
         if (!(event.getEntity() instanceof Player && event.getDamager() instanceof Player))
             return;
 
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
+
+
+        if (KillListener.SPAWNKILL.contains(damaged.getName())) {
+            event.setCancelled(true);
+            Messenger.sendErrorMessage(damager, String.format("%s è appena spawnato, non puoi colpirlo!", damaged.getName()));
+            return;
+        } else if (KillListener.SPAWNKILL.contains(damager.getName())) {
+            event.setCancelled(true);
+            Messenger.sendErrorMessage(damager, "Sei appena spawnato, non puoi colpire nessuno!");
+            return;
+        }
 
         Set<String> damagers = Sets.newHashSet();
 

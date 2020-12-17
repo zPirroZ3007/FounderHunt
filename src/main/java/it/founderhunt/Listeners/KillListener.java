@@ -1,17 +1,22 @@
 package it.founderhunt.Listeners;
 
+import com.google.common.collect.Sets;
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
-import net.tecnocraft.utils.utils.Util;
+import net.tecnocraft.utils.chat.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.Set;
+
 public class KillListener implements Listener {
+
+    public static Set<String> SPAWNKILL = Sets.newHashSet();
 
     @EventHandler
     public void onKill(PlayerDeathEvent event) {
@@ -29,6 +34,7 @@ public class KillListener implements Listener {
                     if (Utils.getMode() != GameModes.RISCALDAMENTO) {
                         FounderHunt.PLAYERS.get(p).addAssistPoint();
                         FounderHunt.PLAYERS.get(p).addAssistKill();
+                        killed.addDeath();
                     }
                     if (!start)
                         sb.append(p);
@@ -44,6 +50,7 @@ public class KillListener implements Listener {
                 if (Utils.getMode() != GameModes.RISCALDAMENTO) {
                     killer.addPoint();
                     killer.addKill();
+                    killed.addDeath();
                 }
             }
         }
@@ -52,6 +59,9 @@ public class KillListener implements Listener {
         event.setCancelled(true);
 
         killed.teleportSpawnpoint();
+        SPAWNKILL.add(killed.getName());
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
 
     }
 
@@ -60,6 +70,14 @@ public class KillListener implements Listener {
             return false;
 
         return AssistKillHandler.ASSISTS.get(username).size() > 1;
+    }
+
+    private void removeSpawnKillTimer(String username) {
+        SPAWNKILL.remove(username);
+
+        org.bukkit.entity.Player p = Bukkit.getPlayerExact(username);
+        if(p != null)
+            Messenger.sendWarnMessage(p, "Adesso puoi colpire ed essere colpito!");
     }
 
 }

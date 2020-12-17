@@ -1,10 +1,7 @@
 package it.founderhunt;
 
 import com.google.common.collect.Maps;
-import it.founderhunt.Commands.AdminCommands;
-import it.founderhunt.Commands.InfoCommand;
-import it.founderhunt.Commands.KitCommand;
-import it.founderhunt.Commands.SpawnpointCommand;
+import it.founderhunt.Commands.*;
 import it.founderhunt.Listeners.AssistKillHandler;
 import it.founderhunt.Listeners.JoinQuitListener;
 import it.founderhunt.Listeners.KillListener;
@@ -60,6 +57,7 @@ public final class FounderHunt extends JavaPlugin {
         new SpawnpointCommand("founderhuntspawnpoint", "fhspawnpoint", "fhsp");
         new InfoCommand(this, "info");
         new AdminCommands();
+        new Punti();
     }
 
     private void registerEvents() {

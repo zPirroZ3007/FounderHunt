@@ -9,5 +9,6 @@ public class Data {
     private int points;
     private int kills;
     private int assistKills;
+    private int deaths;
 
 }

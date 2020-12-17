@@ -22,16 +22,22 @@ public class Player extends CraftPlayer {
 
     @Getter
     @Setter
+
     private int playerKilled;
     @Getter
     @Setter
     private int playerAssistKilled;
 
+    @Getter
+    @Setter
+    private int deaths;
+
     public Player(org.bukkit.entity.Player player) {
         super((CraftServer) player.getServer(), ((CraftPlayer) player).getHandle());
-        this.points = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0)).getPoints();
-        this.playerKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0)).getKills();
-        this.playerAssistKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0)).getAssistKills();
+        this.points = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0, 0)).getPoints();
+        this.playerKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0, 0)).getKills();
+        this.playerAssistKilled = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0, 0)).getAssistKills();
+        this.deaths = Stats.MAP.getOrDefault(player.getName(), new Data(0, 0, 0, 0)).getDeaths();
     }
 
     public static Player to(org.bukkit.entity.Player player) {
@@ -115,6 +121,13 @@ public class Player extends CraftPlayer {
 
         Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
                 Database.update("UPDATE `stats` SET `kills`=? WHERE username=?", getPlayerKilled(), getName()));
+    }
+
+    public void addDeath() {
+        setDeaths(getDeaths() + 1);
+
+        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
+                Database.update("UPDATE `stats` SET `deaths`=? WHERE username=?", getDeaths(), getName()));
     }
 
     public void addAssistKill() {
