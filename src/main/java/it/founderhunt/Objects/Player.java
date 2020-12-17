@@ -15,6 +15,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class Player extends CraftPlayer {
 
     @Getter
@@ -93,8 +96,10 @@ public class Player extends CraftPlayer {
     }
 
     public void addPoint(int n) {
-        setPoints(getPoints() + n);
-        sendTitle("", "§6Hai ricevuto " + n + " " + (n == 1 ? "punto!" : "punti!"), 5, 30, 5);
+        int p = Utils.BOOSTER ? (int) (n * (getName().equals(Utils.BOOSTING) ? 2 : 1.5)) : n;
+
+        setPoints(getPoints() + p);
+        sendTitle("", "§6Hai ricevuto " + p + " " + (p == 1 ? "punto!" : "punti!"), 5, 30, 5);
         playSound(getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1.3F);
     }
 
@@ -135,6 +140,24 @@ public class Player extends CraftPlayer {
 
         Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () ->
                 Database.update("UPDATE `stats` SET `assists`=? WHERE username=?", getPlayerAssistKilled(), getName()));
+    }
+
+    public void setBoosting(boolean value) {
+        Database.update("UPDATE stats SET booster=? WHERE username=?;", value, getName());
+    }
+
+    public boolean getBoosting() {
+        try (PreparedStatement ps = Database.getConnection().prepareStatement("SELECT * FROM stats WHERE username = ?")) {
+            ps.setString(1, getName());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return rs.getBoolean("booster");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
 
 }

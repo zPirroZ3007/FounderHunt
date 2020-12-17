@@ -59,6 +59,7 @@ public final class FounderHunt extends JavaPlugin {
         new AdminCommands();
         new Punti();
         new Classifica();
+        new Booster();
     }
 
     private void registerEvents() {

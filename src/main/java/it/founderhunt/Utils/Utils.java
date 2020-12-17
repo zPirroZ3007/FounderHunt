@@ -28,6 +28,9 @@ public class Utils {
     @Setter
     public static GameModes mode = GameModes.RISCALDAMENTO;
 
+    public static boolean BOOSTER = false;
+    public static String BOOSTING = "";
+
     public static Location roundedLocation(Location location) {
         Location roundedLocation = location.clone();
         roundedLocation.setPitch(0);
