@@ -9,8 +9,10 @@ import net.tecnocraft.utils.chat.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.Set;
 
@@ -60,16 +62,6 @@ public class KillListener implements Listener {
 
         AssistKillHandler.ASSISTS.remove(killed.getName());
         event.getDrops().clear();
-        event.setCancelled(true);
-
-        killed.teleportSpawnpoint();
-        SPAWNKILL.add(killed.getName());
-        killed.setFoodLevel(20);
-
-        Messenger.sendWarnMessage(killed, "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
-
-        Bukkit.getScheduler().scheduleSyncDelayedTask(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
-
     }
 
     public boolean isAssist(String username) {
@@ -85,6 +77,20 @@ public class KillListener implements Listener {
         org.bukkit.entity.Player p = Bukkit.getPlayerExact(username);
         if (p != null)
             Messenger.sendWarnMessage(p, "Adesso puoi colpire ed essere colpito!");
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        Player killed = FounderHunt.PLAYERS.get(event.getPlayer().getName());
+
+        killed.teleportSpawnpoint();
+        SPAWNKILL.add(killed.getName());
+        killed.setFoodLevel(20);
+        killed.getActivePotionEffects().forEach(p -> killed.removePotionEffect(p.getType()));
+
+        Messenger.sendWarnMessage(killed, "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
     }
 
 }

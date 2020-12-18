@@ -17,11 +17,15 @@ public class PreventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventBlockBreak(BlockBreakEvent event) {
+        if(event.getPlayer().hasPermission(Perms.ADMIN))
+            return;
         event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventBlockPlace(BlockPlaceEvent event) {
+        if(event.getPlayer().hasPermission(Perms.ADMIN))
+            return;
         event.setCancelled(true);
     }
 
@@ -37,13 +41,14 @@ public class PreventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventItemMove(InventoryClickEvent event) {
-
-        event.setCancelled(true);
-
         if (!(event.getWhoClicked() instanceof Player))
             return;
 
         Player player = (Player) event.getWhoClicked();
+        if (player.hasPermission(Perms.ADMIN))
+            return;
+
+        event.setCancelled(true);
         player.getHandle().updateInventory(player.getHandle().activeContainer);
     }
 
