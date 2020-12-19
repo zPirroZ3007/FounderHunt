@@ -29,10 +29,12 @@ public class Booster extends CommandFramework {
         Bukkit.getScheduler().scheduleSyncDelayedTask(FounderHunt.inst(), this::stopBoosting, 20 * 600);
         player.setBoosting(true);
 
-        Bukkit.broadcastMessage("");
-        Bukkit.broadcastMessage(String.format("§5%s §dsta boostando la tua partita! Per 10 minuti ci saranno §51.5x§d punti in più!",
-                player.getName()));
-        Bukkit.broadcastMessage("");
+        Bukkit.getServer().getOnlinePlayers().forEach(pf -> {
+            pf.sendMessage("");
+            pf.sendMessage(String.format("§5%s §dsta boostando la tua partita! Per 10 minuti ci saranno §51.5x§d punti in più!",
+                    player.getName()));
+            pf.sendMessage("");
+        });
 
     }
 

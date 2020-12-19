@@ -4,11 +4,10 @@ import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
 import net.tecnocraft.utils.utils.CommandFramework;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class InfoCommand extends CommandFramework {
-    public InfoCommand(JavaPlugin plugin, String label, String... aliases) {
-        super(plugin, label, aliases);
+    public InfoCommand() {
+        super(FounderHunt.inst(), "stats");
     }
 
     @Override

@@ -3,6 +3,7 @@ package it.founderhunt.Listeners;
 import com.google.common.collect.Sets;
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
+import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
 import net.tecnocraft.utils.chat.Messenger;
@@ -12,13 +13,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class KillListener implements Listener {
 
     public static Set<String> SPAWNKILL = Sets.newHashSet();
+    public static Set<String> SPAWNED = Sets.newHashSet();
 
     @EventHandler
     public void onKill(PlayerDeathEvent event) {
@@ -46,10 +50,10 @@ public class KillListener implements Listener {
                     start = true;
                 }
 
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s hanno ucciso %s.", sb.toString(), killed.getName()));
+                Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(ChatColor.DARK_GRAY + String.format("%s hanno ucciso %s.", sb.toString(), killed.getName())));
             } else {
 
-                Bukkit.broadcastMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName()));
+                Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName())));
 
                 if (!killed.getName().equals(killer.getName()))
                     if (Utils.getMode() != GameModes.RISCALDAMENTO) {
@@ -82,15 +86,29 @@ public class KillListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         Player killed = FounderHunt.PLAYERS.get(event.getPlayer().getName());
+        killed.clearInventoryFully();
 
-        killed.teleportSpawnpoint();
+        event.setRespawnLocation(Objects.requireNonNull(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections()))));
+
         SPAWNKILL.add(killed.getName());
+        SPAWNED.add(killed.getName());
         killed.setFoodLevel(20);
         killed.getActivePotionEffects().forEach(p -> killed.removePotionEffect(p.getType()));
 
         Messenger.sendWarnMessage(killed, "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
+        Bukkit.getScheduler().runTaskLater(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR) public void giveKit(PlayerMoveEvent event) {
+        if(SPAWNED.contains(event.getPlayer().getName())) {
+            if(SPAWNKILL.contains(event.getPlayer().getName()))
+                return;
+            Player killed = FounderHunt.PLAYERS.get(event.getPlayer().getName());
+            SPAWNED.remove(killed.getName());
+            killed.teleportSpawnpoint();
+        }
+
     }
 
 }

@@ -57,7 +57,7 @@ public final class FounderHunt extends JavaPlugin {
     private void registerCommands() {
         new KitCommand("founderhuntkit", "fhkit");
         new SpawnpointCommand("founderhuntspawnpoint", "fhspawnpoint", "fhsp");
-        new InfoCommand(this, "info", "stats");
+        new InfoCommand();
         new AdminCommands();
         new Punti();
         new Classifica();

@@ -75,7 +75,6 @@ public class Player extends CraftPlayer {
     public void teleportSpawnpoint() {
 
         this.clearInventoryFully();
-        this.teleport(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections())));
         this.giveKit();
 
         playSound(getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1.2F);
