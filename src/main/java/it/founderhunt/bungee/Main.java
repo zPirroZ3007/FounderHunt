@@ -7,6 +7,7 @@ import it.founderhunt.bungee.listeners.MatchLobby;
 import it.founderhunt.bungee.listeners.Motd;
 import it.founderhunt.bungee.util.Util;
 import lombok.Getter;
+import net.luckperms.api.LuckPerms;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.tecnocraft.utils.utils.listeners.bungee.Listeners;
 
@@ -23,6 +24,7 @@ public class Main extends Plugin {
         instance = this;
 
         load();
+        loadPriority();
         registerCommands();
         registerListeners();
     }
@@ -51,6 +53,20 @@ public class Main extends Plugin {
             if (!file.exists())
                 file.createNewFile();
             Util.setMotd(new String(Files.readAllBytes(file.toPath())));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void loadPriority() {
+        try {
+            if (!getDataFolder().exists())
+                getDataFolder().mkdir();
+
+            File file = new File(Main.getInstance().getDataFolder(), "priority.txt");
+            if (!file.exists())
+                file.createNewFile();
+            Util.setPriority(new String(Files.readAllBytes(file.toPath())));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

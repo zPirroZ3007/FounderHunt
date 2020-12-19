@@ -2,3 +2,5 @@ name: FounderHunt
 version: ${project.version}
 main: it.founderhunt.bungee.Main
 description: FounderHunt Core
+depends:
+  - LuckPerms

@@ -9,4 +9,8 @@ public class Util {
     @Setter
     private static String motd;
 
+    @Getter
+    @Setter
+    private static String priority;
+
 }

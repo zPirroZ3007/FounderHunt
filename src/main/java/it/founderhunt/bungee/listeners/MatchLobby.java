@@ -1,6 +1,11 @@
 package it.founderhunt.bungee.listeners;
 
+import it.founderhunt.bungee.util.Util;
 import lombok.Getter;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.Node;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.event.PreLoginEvent;
@@ -22,6 +27,19 @@ public class MatchLobby implements Listener {
             return;
         event.setTarget(getHub());
         getJoinList().remove(event.getPlayer().getName());
+    }
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onServerConnect2(ServerConnectEvent event) {
+        LuckPerms api = LuckPermsProvider.get();
+        User user = api.getUserManager().getUser(event.getPlayer().getName());
+        for(Node node : user.getNodes())
+            if(node.getKey().equals("bungeequeue.bypass"))
+                return;
+        if(!Util.getPriority().contains(event.getPlayer().getName()))
+            return;
+        Node node = Node.builder("bungeequeue.bypass").value(true).build();
+        user.data().add(node);
+        api.getUserManager().saveUser(user);
     }
 
     public static Listener to() {
