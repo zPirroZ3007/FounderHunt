@@ -5,6 +5,7 @@ import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Stats;
+import it.founderhunt.Utils.Utils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -15,6 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import java.util.Objects;
 
 public class JoinQuitListener implements Listener {
 
@@ -31,6 +34,7 @@ public class JoinQuitListener implements Listener {
 
 
         player.teleportSpawnpoint();
+        player.teleport(Objects.requireNonNull(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections()))));
         if(Config.FOUNDERS.getStringList("founders").contains(player.getName())) {
             LuckPerms lp = LuckPermsProvider.get();
             User user = lp.getUserManager().getUser(player.getName());
@@ -38,7 +42,9 @@ public class JoinQuitListener implements Listener {
                 if(node.getKey().equals(Perms.FOUNDER))
                     return;
             Node node = Node.builder(Perms.FOUNDER).value(true).build();
+            Node node2 = Node.builder("essentials.gamemode.*").value(true).build();
             user.data().add(node);
+            user.data().add(node2);
             lp.getUserManager().saveUser(user);
         }
 
