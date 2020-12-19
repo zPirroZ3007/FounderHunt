@@ -34,8 +34,6 @@ public class KillListener implements Listener {
             Player killer = FounderHunt.PLAYERS.get(event.getEntity().getKiller().getName());
 
             int points = 100;
-            if (Bukkit.getPlayerExact(killed.getName()).hasPermission(Perms.SCORTA))
-                points = 1000;
             if (Bukkit.getPlayerExact(killed.getName()).hasPermission(Perms.FOUNDER))
                 points = 10000;
             if(points != 100)
@@ -47,7 +45,7 @@ public class KillListener implements Listener {
                 for (String p : AssistKillHandler.ASSISTS.get(killed.getName())) {
                     if (!p.equals(killed.getName()))
                         if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                            if (!(killed.hasPermission(Perms.SCORTA) && killed.hasPermission(Perms.FOUNDER))) {
+                            if (!(killed.hasPermission(Perms.FOUNDER))) {
                                 FounderHunt.PLAYERS.get(p).addAssistPoint();
                                 FounderHunt.PLAYERS.get(p).addAssistKill();
                             }
@@ -67,7 +65,7 @@ public class KillListener implements Listener {
 
                 if (!killed.getName().equals(killer.getName()))
                     if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                        if (!(killed.hasPermission(Perms.SCORTA) && killed.hasPermission(Perms.FOUNDER))) {
+                        if (!(killed.hasPermission(Perms.FOUNDER))) {
                             killer.addPoint();
                             killer.addKill();
                         }

@@ -26,7 +26,7 @@ public class AssistKillHandler implements Listener {
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
-        if ((damaged.hasPermission(Perms.SCORTA) || damaged.hasPermission(Perms.FOUNDER)) && (damaged.hasPermission(Perms.SCORTA) || damaged.hasPermission(Perms.FOUNDER))) {
+        if ((damaged.hasPermission(Perms.SCORTA) || damaged.hasPermission(Perms.FOUNDER)) && (damager.hasPermission(Perms.SCORTA) || damager.hasPermission(Perms.FOUNDER))) {
             event.setCancelled(true);
             return;
         }
