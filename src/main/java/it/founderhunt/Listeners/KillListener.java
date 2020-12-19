@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Config;
+import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
 import net.tecnocraft.utils.chat.Messenger;
@@ -32,6 +33,13 @@ public class KillListener implements Listener {
         if (event.getEntity().getKiller() != null) {
             Player killer = FounderHunt.PLAYERS.get(event.getEntity().getKiller().getName());
 
+            int points = 100;
+            if (Bukkit.getPlayerExact(killed.getName()).hasPermission(Perms.SCORTA))
+                points = 1000;
+            if (Bukkit.getPlayerExact(killed.getName()).hasPermission(Perms.FOUNDER))
+                points = 10000;
+            if(points != 100)
+                killer.addPoint(points);
 
             if (isAssist(killed.getName())) {
                 StringBuilder sb = new StringBuilder();
@@ -39,8 +47,10 @@ public class KillListener implements Listener {
                 for (String p : AssistKillHandler.ASSISTS.get(killed.getName())) {
                     if (!p.equals(killed.getName()))
                         if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                            FounderHunt.PLAYERS.get(p).addAssistPoint();
-                            FounderHunt.PLAYERS.get(p).addAssistKill();
+                            if (!(killed.hasPermission(Perms.SCORTA) && killed.hasPermission(Perms.FOUNDER))) {
+                                FounderHunt.PLAYERS.get(p).addAssistPoint();
+                                FounderHunt.PLAYERS.get(p).addAssistKill();
+                            }
                             killed.addDeath();
                         }
                     if (!start)
@@ -57,8 +67,10 @@ public class KillListener implements Listener {
 
                 if (!killed.getName().equals(killer.getName()))
                     if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                        killer.addPoint();
-                        killer.addKill();
+                        if (!(killed.hasPermission(Perms.SCORTA) && killed.hasPermission(Perms.FOUNDER))) {
+                            killer.addPoint();
+                            killer.addKill();
+                        }
                         killed.addDeath();
                     }
             }
@@ -100,9 +112,10 @@ public class KillListener implements Listener {
         Bukkit.getScheduler().runTaskLater(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR) public void giveKit(PlayerMoveEvent event) {
-        if(SPAWNED.contains(event.getPlayer().getName())) {
-            if(SPAWNKILL.contains(event.getPlayer().getName()))
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void giveKit(PlayerMoveEvent event) {
+        if (SPAWNED.contains(event.getPlayer().getName())) {
+            if (SPAWNKILL.contains(event.getPlayer().getName()))
                 return;
             Player killed = FounderHunt.PLAYERS.get(event.getPlayer().getName());
             SPAWNED.remove(killed.getName());

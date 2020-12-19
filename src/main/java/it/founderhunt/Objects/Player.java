@@ -17,6 +17,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Objects;
 
 public class Player extends CraftPlayer {
 
@@ -83,7 +84,7 @@ public class Player extends CraftPlayer {
     }
 
     public boolean isVIP() {
-        return hasPermission("founderhunt.vip");
+        return Objects.requireNonNull(Bukkit.getPlayerExact(getName())).hasPermission("founderhunt.vip");
     }
 
     public void addPoint() {
