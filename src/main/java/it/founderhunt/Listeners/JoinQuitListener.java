@@ -2,7 +2,14 @@ package it.founderhunt.Listeners;
 
 import it.founderhunt.FounderHunt;
 import it.founderhunt.Objects.Player;
+import it.founderhunt.Utils.Config;
+import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Stats;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.Node;
+import net.luckperms.api.node.NodeBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +29,30 @@ public class JoinQuitListener implements Listener {
             FounderHunt.PLAYERS.put(event.getPlayer().getName(), player);
         });
 
+
         player.teleportSpawnpoint();
+        if(Config.FOUNDERS.getStringList("founders").contains(player.getName())) {
+            LuckPerms lp = LuckPermsProvider.get();
+            User user = lp.getUserManager().getUser(player.getName());
+            for(Node node : user.getNodes())
+                if(node.getKey().equals(Perms.FOUNDER))
+                    return;
+            Node node = Node.builder(Perms.FOUNDER).value(true).build();
+            user.data().add(node);
+            lp.getUserManager().saveUser(user);
+        }
+
+        if(Config.FOUNDERS.getStringList("scorta").contains(player.getName())) {
+            LuckPerms lp = LuckPermsProvider.get();
+            User user = lp.getUserManager().getUser(player.getName());
+            for(Node node : user.getNodes())
+                if(node.getKey().equals(Perms.SCORTA))
+                    return;
+
+            Node node = Node.builder(Perms.SCORTA).value(true).build();
+            user.data().add(node);
+            lp.getUserManager().saveUser(user);
+        }
 
     }
 

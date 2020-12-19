@@ -8,12 +8,14 @@ public class Config {
     public static ConfigFile SPAWN;
     public static ConfigFile KITS;
     public static ConfigFile DATABASE;
+    public static ConfigFile FOUNDERS;
 
     public static void initalize() {
         createFolder();
         SPAWN = ConfigFile.initialize("spawnpoints", FounderHunt.inst());
         KITS = ConfigFile.initialize("kits", FounderHunt.inst());
         DATABASE = ConfigFile.initialize("database", FounderHunt.inst());
+        FOUNDERS = ConfigFile.initialize("founders", FounderHunt.inst());
     }
 
     private static void createFolder() {
