@@ -36,8 +36,9 @@ public class KillListener implements Listener {
             int points = 100;
             if (Bukkit.getPlayerExact(killed.getName()).hasPermission(Perms.FOUNDER))
                 points = 10000;
-            if(points != 100)
-                killer.addPoint(points);
+            if (points != 100)
+                if (Utils.getMode() != GameModes.RISCALDAMENTO)
+                    killer.addPoint(points);
 
             if (isAssist(killed.getName())) {
                 StringBuilder sb = new StringBuilder();
