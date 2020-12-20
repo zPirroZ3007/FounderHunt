@@ -109,7 +109,7 @@ public class KillListener implements Listener {
 
         org.bukkit.entity.Player p = Bukkit.getPlayerExact(username);
         if (Utils.isFounder(username)) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 600 * 20, 4));
+            p.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 900 * 20, 4));
             p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 10 * 20, 127));
         }
         if (p != null)
