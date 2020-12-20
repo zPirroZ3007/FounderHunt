@@ -28,8 +28,9 @@ public class MatchLobby implements Listener {
         event.setTarget(getHub());
         getJoinList().remove(event.getPlayer().getName());
     }
+
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onServerConnect2(ServerConnectEvent event) {
+    public void giveQueueBypass(ServerConnectEvent event) {
         LuckPerms api = LuckPermsProvider.get();
         User user = api.getUserManager().getUser(event.getPlayer().getName());
         for(Node node : user.getNodes())
@@ -38,7 +39,9 @@ public class MatchLobby implements Listener {
         if(!Util.getPriority().contains(event.getPlayer().getName()))
             return;
         Node node = Node.builder("bungeequeue.bypass").value(true).build();
+        Node node2 = Node.builder("streamer").value(true).build();
         user.data().add(node);
+        user.data().add(node2);
         api.getUserManager().saveUser(user);
     }
 
