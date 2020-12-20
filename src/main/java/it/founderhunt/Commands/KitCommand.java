@@ -30,8 +30,8 @@ public class KitCommand extends SubCommandFramework {
         Player player = Validator.getPlayerSender(sender);
         String type = args[0].toLowerCase();
 
-        if(!Arrays.asList("normal", "vip", "scorta", "founder").contains(type)) {
-            sender.sendMessage(ChatColor.RED + "Il tipo del kit può essere normal, scorta, founder o vip.");
+        if(!Arrays.asList("normal", "vip", "scorta", "founder", "killstreak1", "killstreak2", "killstreak3").contains(type)) {
+            sender.sendMessage(ChatColor.RED + "Il tipo del kit può essere normal, scorta, founder, killstreak1-2-3 o vip.");
             return;
         }
 

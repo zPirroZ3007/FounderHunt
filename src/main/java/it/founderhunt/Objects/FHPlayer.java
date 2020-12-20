@@ -83,6 +83,24 @@ public class FHPlayer {
             return;
         }
 
+        if(Utils.getLiveKills().getOrDefault(getName(), 0) == 3) {
+            Config.KITS.getSections("kit.killstreak1").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.killstreak3." + slot)));
+            this.player.updateInventory();
+            return;
+        }
+
+        if(Utils.getLiveKills().getOrDefault(getName(), 0) == 5) {
+            Config.KITS.getSections("kit.killstreak2").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.killstreak3." + slot)));
+            this.player.updateInventory();
+            return;
+        }
+
+        if(Utils.getLiveKills().getOrDefault(getName(), 0) == 10) {
+            Config.KITS.getSections("kit.killstreak3").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.killstreak3." + slot)));
+            this.player.updateInventory();
+            return;
+        }
+
         if (isVIP()) {
             Config.KITS.getSections("kit.vip").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.vip." + slot)));
             this.player.updateInventory();

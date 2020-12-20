@@ -32,7 +32,7 @@ public final class FounderHunt extends JavaPlugin {
         registerEvents();
         Stats.loadAll();
 
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Stats::loadAll, 40, 40);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Stats::loadAll, 0, 10);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Bukkit.getOnlinePlayers().forEach(player -> Messenger.sendWarnActionBarMessage(player, "§eSblocca vantaggi su: §6https://store.FounderHunt.it")), 20, 20);
 
         PlaceHolders.register();
@@ -74,7 +74,7 @@ public final class FounderHunt extends JavaPlugin {
     }
 
     private void registerEvents() {
-        Listeners.register(this, new JoinQuitListener(), new KillListener(), new PreventListener(), new AssistKillHandler());
+        Listeners.register(this, new JoinQuitListener(), new KillListener(), new AssistKillHandler());
     }
 
 }

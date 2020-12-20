@@ -1,6 +1,7 @@
 package it.founderhunt.Utils;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import it.founderhunt.FounderHunt;
 import it.founderhunt.enums.GameModes;
 import lombok.Getter;
@@ -18,15 +19,16 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class Utils {
 
     @Getter
     @Setter
     public static GameModes mode = GameModes.RISCALDAMENTO;
+
+    @Getter
+    private static Map<String, Integer> liveKills = Maps.newHashMap();
 
     public static boolean BOOSTER = false;
     public static String BOOSTING = "";

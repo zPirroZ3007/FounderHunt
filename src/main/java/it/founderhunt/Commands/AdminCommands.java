@@ -1,6 +1,7 @@
 package it.founderhunt.Commands;
 
 import it.founderhunt.FounderHunt;
+import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
@@ -37,8 +38,8 @@ public class AdminCommands extends SubCommandFramework {
 
         for (Player player : Bukkit.getOnlinePlayers()) {
 
-            if(Utils.getMode().equals(GameModes.COMPETITIVO))
-                player.sendTitle("§c§lCOMPETIZIONE!", "§7Adesso le uccisioni verranno contate!", 10, 60 , 10);
+            if (Utils.getMode().equals(GameModes.COMPETITIVO))
+                player.sendTitle("§c§lCOMPETIZIONE!", "§7Adesso le uccisioni verranno contate!", 10, 60, 10);
             else if (Utils.getMode().equals(GameModes.RISCALDAMENTO))
                 player.sendTitle("§e§lRISCALDAMENTO!", "§7I punti non verranno assegnati per le uccisioni", 10, 60, 10);
 
@@ -47,5 +48,19 @@ public class AdminCommands extends SubCommandFramework {
         }
 
         Messenger.sendSuccessMessage(sender, "Modalità di gioco impostata su " + gameMode.name() + "!");
+    }
+
+    @SubCommand("reload")
+    @SubCommandDescription("Ricarica il plugins")
+    @SubCommandMinArgs(0)
+    @SubCommandUsage("")
+    @SubCommandPermission(Perms.ADMIN)
+    @SuppressWarnings("unused")
+    public void reload(CommandSender sender, String label, String[] args) {
+        Config.KITS.reload();
+        Config.DATABASE.reload();
+        Config.FOUNDERS.reload();
+        Config.SPAWN.reload();
+        Messenger.sendSuccessMessage(sender, "Plugin ricaricato!");
     }
 }

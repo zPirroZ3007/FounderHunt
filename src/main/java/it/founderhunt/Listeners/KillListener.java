@@ -27,15 +27,30 @@ public class KillListener implements Listener {
 
     public static Set<String> SPAWNKILL = Sets.newHashSet();
     public static Set<String> SPAWNED = Sets.newHashSet();
+    public static Set<String> Killstreaks = Sets.newHashSet();
 
     @EventHandler
     public void onKill(PlayerDeathEvent event) {
 
         FHPlayer killed = FHPlayer.to(event.getEntity());
 
+
         if (event.getEntity().getKiller() != null) {
             FHPlayer killer = FHPlayer.to(event.getEntity().getKiller());
+            Utils.getLiveKills().put(killer.getName(), Utils.getLiveKills().getOrDefault(killer.getName(), 0) + 1);
 
+            if (!Utils.isFounder(killer.getName()) && !Utils.isScorta(killer.getName()))
+                switch (Utils.getLiveKills().get(killer.getName())) {
+                    case 3:
+                        killstreak1(killer);
+                        break;
+                    case 5:
+                        killstreak2(killer);
+                        break;
+                    case 10:
+                        killstreak3(killer);
+                        break;
+                }
             int points = 100;
             if (Utils.isFounder(killed.getPlayer().getName()))
                 points = 10000;
@@ -103,6 +118,11 @@ public class KillListener implements Listener {
         FHPlayer killed = FHPlayer.to(event.getPlayer());
         killed.clearInventoryFully();
 
+        if (!Killstreaks.contains(killed.getName()))
+            Utils.getLiveKills().remove(killed.getName());
+        else
+            Killstreaks.remove(killed.getName());
+
         event.setRespawnLocation(Objects.requireNonNull(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections()))));
 
         SPAWNKILL.add(killed.getName());
@@ -110,9 +130,8 @@ public class KillListener implements Listener {
         killed.getPlayer().setFoodLevel(20);
         killed.getPlayer().getActivePotionEffects().forEach(p -> killed.getPlayer().removePotionEffect(p.getType()));
 
-        if (Utils.isFounder(killed.getName())) {
+        if (Utils.isFounder(killed.getName()) || Utils.isScorta(killed.getName()))
             killed.getPlayer().setGameMode(GameMode.SPECTATOR);
-        }
         Messenger.sendWarnMessage(killed.getPlayer(), "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
 
         Bukkit.getScheduler().runTaskLater(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
@@ -129,5 +148,24 @@ public class KillListener implements Listener {
         }
 
     }
+
+    private void killstreak1(FHPlayer killer) {
+        Killstreaks.add(killer.getName());
+        killer.getPlayer().setHealth(0);
+        Utils.broadcastMessage(String.format("§4%s §cha fatto una killstreak da 3!", killer.getName()));
+    }
+
+    private void killstreak2(FHPlayer killer) {
+        Killstreaks.add(killer.getName());
+        killer.getPlayer().setHealth(0);
+        Utils.broadcastMessage(String.format("§4%s §cha fatto una killstreak da 5!", killer.getName()));
+    }
+
+    private void killstreak3(FHPlayer killer) {
+        Killstreaks.add(killer.getName());
+        killer.getPlayer().setHealth(0);
+        Utils.broadcastMessage(String.format("§4%s §cha fatto una killstreak da 10!", killer.getName()));
+    }
+
 
 }
