@@ -1,6 +1,5 @@
 package it.founderhunt.Utils;
 
-import com.google.common.collect.Maps;
 import it.founderhunt.Objects.Data;
 import it.founderhunt.database.Database;
 
@@ -10,7 +9,7 @@ import java.util.HashMap;
 
 public class Stats {
 
-    public static HashMap<String, Data> MAP = Maps.newHashMap();
+    public static HashMap<String, Data> MAP = new HashMap<>();
 
     public static void loadAll() {
 

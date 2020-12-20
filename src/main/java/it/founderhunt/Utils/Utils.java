@@ -63,4 +63,15 @@ public class Utils {
         return list.get(new Random().nextInt(set.size()));
     }
 
+    public static void broadcastMessage(String msg) {
+        Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(msg));
+    }
+
+    public static boolean isFounder(String username) {
+        return Config.FOUNDERS.getStringList("founders").contains(username);
+    }
+
+    public static boolean isScorta(String username) {
+        return Config.FOUNDERS.getStringList("scorta").contains(username);
+    }
 }

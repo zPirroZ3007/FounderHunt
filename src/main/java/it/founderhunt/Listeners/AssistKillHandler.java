@@ -3,6 +3,7 @@ package it.founderhunt.Listeners;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import it.founderhunt.Utils.Perms;
+import it.founderhunt.Utils.Utils;
 import net.tecnocraft.utils.chat.Messenger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +27,7 @@ public class AssistKillHandler implements Listener {
         Player damaged = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
-        if ((damaged.hasPermission(Perms.SCORTA) || damaged.hasPermission(Perms.FOUNDER)) && (damager.hasPermission(Perms.SCORTA) || damager.hasPermission(Perms.FOUNDER))) {
+        if ((Utils.isScorta(damaged.getName()) || Utils.isFounder(damaged.getName())) && (Utils.isScorta(damager.getName()) || Utils.isFounder(damager.getName()))) {
             event.setCancelled(true);
             return;
         }

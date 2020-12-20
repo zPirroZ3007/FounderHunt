@@ -1,7 +1,7 @@
 package it.founderhunt.Listeners;
 
-import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Perms;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -49,7 +49,7 @@ public class PreventListener implements Listener {
             return;
 
         event.setCancelled(true);
-        player.getHandle().updateInventory(player.getHandle().activeContainer);
+        player.updateInventory();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

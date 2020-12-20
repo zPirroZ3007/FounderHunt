@@ -2,14 +2,14 @@ package it.founderhunt.Listeners;
 
 import com.google.common.collect.Sets;
 import it.founderhunt.FounderHunt;
-import it.founderhunt.Objects.Player;
+import it.founderhunt.Objects.FHPlayer;
 import it.founderhunt.Utils.Config;
-import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
 import net.tecnocraft.utils.chat.Messenger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,28 +28,27 @@ public class KillListener implements Listener {
     @EventHandler
     public void onKill(PlayerDeathEvent event) {
 
-        Player killed = FounderHunt.PLAYERS.get(event.getEntity().getName());
+        FHPlayer killed = FHPlayer.to(event.getEntity());
 
         if (event.getEntity().getKiller() != null) {
-            Player killer = FounderHunt.PLAYERS.get(event.getEntity().getKiller().getName());
+            FHPlayer killer = FHPlayer.to(event.getEntity().getKiller());
 
             int points = 100;
-            if (Bukkit.getPlayerExact(killed.getName()).hasPermission(Perms.FOUNDER))
+            if (Utils.isFounder(killed.getPlayer().getName()))
                 points = 10000;
-            if (points != 100)
+
+            if (points != 100) {
                 if (Utils.getMode() != GameModes.RISCALDAMENTO)
                     killer.addPoint(points);
-
-            if (isAssist(killed.getName())) {
+                Utils.broadcastMessage(String.format("§6§l%s §eha ucciso il founder §6§l%s", killer.getName(), killed.getName()));
+            } else if (isAssist(killed.getPlayer().getName())) {
                 StringBuilder sb = new StringBuilder();
                 boolean start = false;
-                for (String p : AssistKillHandler.ASSISTS.get(killed.getName())) {
-                    if (!p.equals(killed.getName()))
+                for (String p : AssistKillHandler.ASSISTS.get(killed.getPlayer().getName())) {
+                    if (!p.equals(killed.getPlayer().getName()))
                         if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                            if (!(killed.hasPermission(Perms.FOUNDER))) {
-                                FounderHunt.PLAYERS.get(p).addAssistPoint();
-                                FounderHunt.PLAYERS.get(p).addAssistKill();
-                            }
+                            FHPlayer.to(Bukkit.getPlayerExact(p)).addAssistPoint();
+                            FHPlayer.to(Bukkit.getPlayerExact(p)).addAssistKill();
                             killed.addDeath();
                         }
                     if (!start)
@@ -59,17 +58,15 @@ public class KillListener implements Listener {
                     start = true;
                 }
 
-                Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(ChatColor.DARK_GRAY + String.format("%s hanno ucciso %s.", sb.toString(), killed.getName())));
+                Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(ChatColor.DARK_GRAY + String.format("§8%s §7hanno ucciso §8%s.", sb.toString(), killed.getName())));
             } else {
 
-                Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(ChatColor.DARK_GRAY + String.format("%s è stato ucciso da %s.", killed.getName(), killer.getName())));
+                Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(ChatColor.DARK_GRAY + String.format("§8%s§7 è stato ucciso da §8%s.", killed.getName(), killer.getName())));
 
                 if (!killed.getName().equals(killer.getName()))
                     if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                        if (!(killed.hasPermission(Perms.FOUNDER))) {
-                            killer.addPoint();
-                            killer.addKill();
-                        }
+                        killer.addPoint();
+                        killer.addKill();
                         killed.addDeath();
                     }
             }
@@ -96,17 +93,17 @@ public class KillListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        Player killed = FounderHunt.PLAYERS.get(event.getPlayer().getName());
+        FHPlayer killed = FHPlayer.to(event.getPlayer());
         killed.clearInventoryFully();
 
         event.setRespawnLocation(Objects.requireNonNull(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections()))));
 
         SPAWNKILL.add(killed.getName());
         SPAWNED.add(killed.getName());
-        killed.setFoodLevel(20);
-        killed.getActivePotionEffects().forEach(p -> killed.removePotionEffect(p.getType()));
+        killed.getPlayer().setFoodLevel(20);
+        killed.getPlayer().getActivePotionEffects().forEach(p -> killed.getPlayer().removePotionEffect(p.getType()));
 
-        Messenger.sendWarnMessage(killed, "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
+        Messenger.sendWarnMessage(killed.getPlayer(), "Sei in invincibilità temporanea! Non puoi colpire né essere colpito");
 
         Bukkit.getScheduler().runTaskLater(FounderHunt.inst(), () -> removeSpawnKillTimer(killed.getName()), 200);
     }
@@ -116,7 +113,7 @@ public class KillListener implements Listener {
         if (SPAWNED.contains(event.getPlayer().getName())) {
             if (SPAWNKILL.contains(event.getPlayer().getName()))
                 return;
-            Player killed = FounderHunt.PLAYERS.get(event.getPlayer().getName());
+            FHPlayer killed = FHPlayer.to(event.getPlayer());
             SPAWNED.remove(killed.getName());
             killed.teleportSpawnpoint();
         }

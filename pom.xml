@@ -102,6 +102,7 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

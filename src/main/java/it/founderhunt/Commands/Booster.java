@@ -1,6 +1,7 @@
 package it.founderhunt.Commands;
 
 import it.founderhunt.FounderHunt;
+import it.founderhunt.Objects.FHPlayer;
 import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Utils;
 import it.founderhunt.enums.GameModes;
@@ -21,7 +22,7 @@ public class Booster extends CommandFramework {
 
         Player p = Validator.getPlayerSender(sender);
         Validator.Permission(p, Perms.BOOST);
-        it.founderhunt.Objects.Player player = it.founderhunt.Objects.Player.to(p);
+        FHPlayer player = FHPlayer.to(p);
         Validator.Condition(player.getBoosting(), "Non puoi boostare di nuovo una partita!");
 
         Utils.BOOSTER = true;

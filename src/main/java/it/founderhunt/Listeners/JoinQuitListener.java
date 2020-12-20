@@ -1,7 +1,7 @@
 package it.founderhunt.Listeners;
 
 import it.founderhunt.FounderHunt;
-import it.founderhunt.Objects.Player;
+import it.founderhunt.Objects.FHPlayer;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.Perms;
 import it.founderhunt.Utils.Stats;
@@ -10,7 +10,6 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
-import net.luckperms.api.node.NodeBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,21 +24,17 @@ public class JoinQuitListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.setJoinMessage(null);
 
-        Player player = Player.to(event.getPlayer());
+        FHPlayer player = FHPlayer.to(event.getPlayer());
 
-        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () -> {
-            Stats.loadPlayer(player.getName());
-            FounderHunt.PLAYERS.put(event.getPlayer().getName(), player);
-        });
-
+        Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () -> Stats.loadPlayer(player.getName()));
 
         player.teleportSpawnpoint();
-        player.teleport(Objects.requireNonNull(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections()))));
-        if(Config.FOUNDERS.getStringList("founders").contains(player.getName())) {
+        player.getPlayer().teleport(Objects.requireNonNull(Config.SPAWN.getLocation(Utils.getOne(Config.SPAWN.getSections()))));
+        if (Config.FOUNDERS.getStringList("founders").contains(player.getName())) {
             LuckPerms lp = LuckPermsProvider.get();
             User user = lp.getUserManager().getUser(player.getName());
-            for(Node node : user.getNodes())
-                if(node.getKey().equals(Perms.FOUNDER))
+            for (Node node : user.getNodes())
+                if (node.getKey().equals(Perms.FOUNDER))
                     return;
             Node node = Node.builder(Perms.FOUNDER).value(true).build();
             Node node2 = Node.builder("essentials.gamemode.*").value(true).build();
@@ -48,11 +43,11 @@ public class JoinQuitListener implements Listener {
             lp.getUserManager().saveUser(user);
         }
 
-        if(Config.FOUNDERS.getStringList("scorta").contains(player.getName())) {
+        if (Config.FOUNDERS.getStringList("scorta").contains(player.getName())) {
             LuckPerms lp = LuckPermsProvider.get();
             User user = lp.getUserManager().getUser(player.getName());
-            for(Node node : user.getNodes())
-                if(node.getKey().equals(Perms.SCORTA))
+            for (Node node : user.getNodes())
+                if (node.getKey().equals(Perms.SCORTA))
                     return;
 
             Node node = Node.builder(Perms.SCORTA).value(true).build();
