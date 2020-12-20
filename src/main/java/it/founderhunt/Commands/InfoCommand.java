@@ -14,11 +14,6 @@ public class InfoCommand extends CommandFramework {
     public void execute(CommandSender commandSender, String s, String[] strings) {
         Player player = FounderHunt.PLAYERS.get(commandSender.getName());
 
-        if(strings.length != 0) {
-            player.addPoint();
-            return;
-        }
-
         player.sendMessage("");
         player.sendMessage("  §6§lLe tue statistiche:");
         player.sendMessage("   §8▪ §3Punti: §b" + player.getPoints());
