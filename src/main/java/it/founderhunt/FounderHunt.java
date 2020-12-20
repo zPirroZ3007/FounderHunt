@@ -6,16 +6,20 @@ import it.founderhunt.Listeners.AssistKillHandler;
 import it.founderhunt.Listeners.JoinQuitListener;
 import it.founderhunt.Listeners.KillListener;
 import it.founderhunt.Listeners.PreventListener;
+import it.founderhunt.Objects.Data;
 import it.founderhunt.Objects.Player;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.PlaceHolders;
 import it.founderhunt.Utils.Stats;
+import it.founderhunt.database.Database;
 import net.tecnocraft.utils.chat.Messenger;
 import net.tecnocraft.utils.utils.Listeners;
 import net.tecnocraft.utils.utils.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 
 public final class FounderHunt extends JavaPlugin {
@@ -30,7 +34,10 @@ public final class FounderHunt extends JavaPlugin {
         Config.initalize();
         registerCommands();
         registerEvents();
-        Stats.loadAll();
+
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, Stats::loadAll, 0, 40);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Bukkit.getOnlinePlayers().forEach(player -> Messenger.sendWarnActionBarMessage(player, "§eSblocca vantaggi su: §6https://store.FounderHunt.it")), 20, 20);
+
         PlaceHolders.register();
 
         if (!Config.SPAWN.getSections().isEmpty())
@@ -39,7 +46,6 @@ public final class FounderHunt extends JavaPlugin {
                 PLAYERS.put(player.getName(), FHPlayer);
                 FHPlayer.teleportSpawnpoint();
             });
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> Bukkit.getOnlinePlayers().forEach(player -> Messenger.sendWarnActionBarMessage(player, "§eSblocca vantaggi su: §6https://store.FounderHunt.it")), 20, 20);
 
         Log.onEnable(this);
     }

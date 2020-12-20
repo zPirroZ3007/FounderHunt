@@ -12,7 +12,7 @@ public class InfoCommand extends CommandFramework {
 
     @Override
     public void execute(CommandSender commandSender, String s, String[] strings) {
-        Player player = FounderHunt.PLAYERS.get(commandSender.getName());
+        Player player = Player.to(Validator.getPlayerSender(commandSender));
 
         player.sendMessage("");
         player.sendMessage("  §6§lLe tue statistiche:");
