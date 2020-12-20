@@ -65,8 +65,11 @@ public class KillListener implements Listener {
                 for (String p : AssistKillHandler.ASSISTS.get(killed.getPlayer().getName())) {
                     if (!p.equals(killed.getPlayer().getName()))
                         if (Utils.getMode() != GameModes.RISCALDAMENTO) {
-                            FHPlayer.to(Bukkit.getPlayerExact(p)).addAssistPoint();
-                            FHPlayer.to(Bukkit.getPlayerExact(p)).addAssistKill();
+                            Player pp = Bukkit.getPlayerExact(p);
+                            if(pp == null)
+                                continue;
+                            FHPlayer.to(pp).addAssistPoint();
+                            FHPlayer.to(pp).addAssistKill();
                             killed.addDeath();
                         }
                     if (!start)
