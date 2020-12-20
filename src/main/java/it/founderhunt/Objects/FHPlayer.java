@@ -71,14 +71,26 @@ public class FHPlayer {
     @SuppressWarnings("deprecation")
     public void giveKit() {
 
-        if (isVIP()) {
-            Config.KITS.getSections("kit.vip").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.vip." + slot)));
-        } else {
-            Config.KITS.getSections("kit.normal").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.normal." + slot)));
+        if (Utils.isFounder(getName())) {
+            Config.KITS.getSections("kit.founder").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.founder." + slot)));
+            this.player.updateInventory();
+            return;
         }
 
-        this.player.updateInventory();
+        if (Utils.isScorta(getName())) {
+            Config.KITS.getSections("kit.scorta").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.scorta." + slot)));
+            this.player.updateInventory();
+            return;
+        }
 
+        if (isVIP()) {
+            Config.KITS.getSections("kit.vip").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.vip." + slot)));
+            this.player.updateInventory();
+            return;
+        }
+
+        Config.KITS.getSections("kit.normal").forEach(slot -> this.player.getInventory().setItem(Integer.parseInt(slot), Config.KITS.getItemStack("kit.normal." + slot)));
+        this.player.updateInventory();
     }
 
     public void teleportSpawnpoint() {

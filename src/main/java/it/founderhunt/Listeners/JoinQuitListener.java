@@ -11,6 +11,7 @@ import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -25,6 +26,9 @@ public class JoinQuitListener implements Listener {
         event.setJoinMessage(null);
 
         FHPlayer player = FHPlayer.to(event.getPlayer());
+
+        if(Utils.isFounder(player.getName()))
+            event.getPlayer().setGameMode(GameMode.SPECTATOR);
 
         Bukkit.getScheduler().runTaskAsynchronously(FounderHunt.inst(), () -> Stats.loadPlayer(player.getName()));
 
