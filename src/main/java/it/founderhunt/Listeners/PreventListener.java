@@ -1,6 +1,7 @@
 package it.founderhunt.Listeners;
 
 import it.founderhunt.Utils.Perms;
+import it.founderhunt.Utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,10 +32,10 @@ public class PreventListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void preventChat(AsyncPlayerChatEvent event) {
-        event.setFormat("§8[Organizzatore] §a" + event.getPlayer().getName() + " §8» §7" + event.getMessage());
+        event.setFormat("§8[" + (Utils.isFounder(event.getPlayer().getName()) ? "FounderConnesso" : "Organizzatore") + "] §a" + event.getPlayer().getName() + " §8» §7" + event.getMessage());
         if (event.getMessage().startsWith("/"))
             return;
-        if (event.getPlayer().hasPermission(Perms.ADMIN))
+        if (event.getPlayer().hasPermission(Perms.ADMIN) || Utils.isFounder(event.getPlayer().getName()))
             return;
         event.setCancelled(true);
     }

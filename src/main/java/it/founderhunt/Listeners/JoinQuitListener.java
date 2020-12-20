@@ -37,9 +37,13 @@ public class JoinQuitListener implements Listener {
                 if (node.getKey().equals(Perms.FOUNDER))
                     return;
             Node node = Node.builder(Perms.FOUNDER).value(true).build();
-            Node node2 = Node.builder("essentials.gamemode.*").value(true).build();
+            Node node2 = Node.builder("essentials.gamemode.spectator").value(true).build();
+            Node node3 = Node.builder("essentials.gamemode.survival").value(true).build();
+            Node node4 = Node.builder("essentials.gamemode").value(true).build();
             user.data().add(node);
             user.data().add(node2);
+            user.data().add(node3);
+            user.data().add(node4);
             lp.getUserManager().saveUser(user);
         }
 
