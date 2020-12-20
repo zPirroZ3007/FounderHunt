@@ -9,11 +9,15 @@ import it.founderhunt.Objects.FHPlayer;
 import it.founderhunt.Utils.Config;
 import it.founderhunt.Utils.PlaceHolders;
 import it.founderhunt.Utils.Stats;
+import it.founderhunt.Utils.Utils;
 import net.tecnocraft.utils.chat.Messenger;
 import net.tecnocraft.utils.utils.Listeners;
 import net.tecnocraft.utils.utils.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public final class FounderHunt extends JavaPlugin {
 
@@ -38,6 +42,13 @@ public final class FounderHunt extends JavaPlugin {
                 FHPlayer fhPlayer = FHPlayer.to(player);
                 fhPlayer.teleportSpawnpoint();
             });
+
+
+        Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(player -> {
+            if (Utils.isFounder(player.getName()))
+                if (player.getGameMode() != GameMode.SPECTATOR)
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 20 * 10, 0));
+        }), 0, 20 * 60);
 
         Log.onEnable(this);
     }
