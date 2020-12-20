@@ -74,7 +74,7 @@ public final class FounderHunt extends JavaPlugin {
     }
 
     private void registerEvents() {
-        Listeners.register(this, new JoinQuitListener(), new KillListener(), new AssistKillHandler());
+        Listeners.register(this, new JoinQuitListener(), new KillListener(), new PreventListener(), new AssistKillHandler());
     }
 
 }
