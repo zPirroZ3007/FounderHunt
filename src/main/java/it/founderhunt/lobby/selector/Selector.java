@@ -21,21 +21,15 @@ public class Selector extends GUIFramework implements Listener {
     @Override
     public void execute(Player player, InventoryContents contents) {
 
-        contents.set(new SlotPos(1, 2), ClickableItem.of(new ItemStackBuilder(Material.DIAMOND_SWORD, 1).setName("§bPartita #1").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+        contents.set(new SlotPos(1, 3), ClickableItem.of(new ItemStackBuilder(Material.DIAMOND_SWORD, 1).setName("§bPartita #1").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                 .setLore("§7Clicca per entrare!", String.format("§aOnline: §l%s", Utils.getBungeeOnlineCountIn(player, "game-1"))).build(),
                 e -> Utils.sendToServer(player, "game-1")));
-        contents.set(new SlotPos(1, 3), ClickableItem.of(new ItemStackBuilder(Material.GOLD_SWORD, 1).setName("§6Partita #2").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+        contents.set(new SlotPos(1, 4), ClickableItem.of(new ItemStackBuilder(Material.GOLD_SWORD, 1).setName("§6Partita #2").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                 .setLore("§7Clicca per entrare!", String.format("§aOnline: §l%s", Utils.getBungeeOnlineCountIn(player, "game-2"))).build(),
                 e -> Utils.sendToServer(player, "game-2")));
-        contents.set(new SlotPos(1, 4), ClickableItem.of(new ItemStackBuilder(Material.IRON_SWORD, 1).setName("§fPartita #3").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
+        contents.set(new SlotPos(1, 5), ClickableItem.of(new ItemStackBuilder(Material.IRON_SWORD, 1).setName("§fPartita #3").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
                 .setLore("§7Clicca per entrare!", String.format("§aOnline: §l%s", Utils.getBungeeOnlineCountIn(player, "game-3"))).build(),
                 e -> Utils.sendToServer(player, "game-3")));
-        contents.set(new SlotPos(1, 5), ClickableItem.of(new ItemStackBuilder(Material.STONE_SWORD, 1).setName("§7Partita #4").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-                .setLore("§7Clicca per entrare!", String.format("§aOnline: §l%s", Utils.getBungeeOnlineCountIn(player, "game-4"))).build(),
-                e -> Utils.sendToServer(player, "game-4")));
-        contents.set(new SlotPos(1, 6), ClickableItem.of(new ItemStackBuilder(Material.WOOD_SWORD, 1).setName("§8Partita #5").addItemFlags(ItemFlag.HIDE_ATTRIBUTES)
-                .setLore("§7Clicca per entrare!", String.format("§aOnline: §l%s", Utils.getBungeeOnlineCountIn(player, "game-5"))).build(),
-                e -> Utils.sendToServer(player, "game-5")));
 
         contents.fillBorders(ClickableItem.empty(Utils.randomGlassColor()));
     }
